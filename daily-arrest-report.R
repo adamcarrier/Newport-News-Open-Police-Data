@@ -1,10 +1,23 @@
-getDailyArrestReport <- function(workingDirectory) {
+getDailyArrestReport <- function(workingDirectory,dataSetDirectory="./data/") {
     ## Initial set up
     url <- "https://gis2.nngov.com/ssrs/report/?rs:Name=/12-Police/Daily_Arrests_Public&rs:Command=Render&rs:Format=CSV"
-    dataDirectory <- "data"
-    fileName <- "./data/daily-arrests.csv"
+    fileName <- "daily-arrests.csv"
+    destinationFile <- paste(dataSetDirectory,fileName,sep="/")
     setwd(workingDirectory)
-    colclasses <- c(
+    columnNames = c(
+        "Arrest", # Arrest_
+        "DateTime", # Date_Time
+        "Address", # Address
+        "Charge", # Charge
+        "Arrestee", # Arrestee
+        "Race", # Race
+        "Sex", # Sex
+        "Age", # Age
+        "Report", # Report_
+        "RescueAmbulanceUnit", # RA
+        "Officer"  # OFFICER
+    )
+    columnClasses <- c(
         "character", # Arrest_
         "character", # Date_Time
         "character", # Address
@@ -20,16 +33,19 @@ getDailyArrestReport <- function(workingDirectory) {
     cityName <- "NEWPORT NEWS"
     stateName <- "VIRGINIA"
     
-    ## Download our data
-    if(!file.exists(dataDirectory)) {
-        dir.create(dataDirectory)
-    }
-    if(!file.exists(fileName)) {
-       download.file(url,destfile=fileName,method="curl",quiet=TRUE)
+    ## Create data directory
+    if(!file.exists(dataSetDirectory)) {
+        dir.create(dataSetDirectory)
     }
     
+    ## Download our data
+    download.file(url,destfile=destinationFile,method="curl",quiet=TRUE)
+    
     ## Create data frame
-    data <- read.csv(fileName,skip=5,colClasses=colclasses,stringsAsFactors=FALSE)
+    data <- read.csv(destinationFile,skip=5,col.names=columnNames,colClasses=columnClasses,stringsAsFactors=FALSE)
+    
+    ## Delete daily report file
+    if (file.exists(destinationFile)) file.remove(destinationFile)
     
     ## Reformat addresses
     data$Address <- gsub("BLOCK","",data$Address) # remove "BLOCK" from addresses
@@ -50,12 +66,12 @@ getDailyArrestReport <- function(workingDirectory) {
         data$lon[i] <- as.numeric(result[1])
         data$lat[i] <- as.numeric(result[2])
 
-        # reformat Date_Time
-        splitDateTime <- strsplit(data$Date_Time[i],":") # split string at colon
+        # reformat DateTime
+        splitDateTime <- strsplit(data$DateTime[i],":") # split string at colon
         splitDateTime[[1]][[2]] <- gsub("(\\d{2})(?=\\d{2})","\\1:",splitDateTime[[1]][[2]],perl=TRUE) # add colon back into time
         splitDateTime[[1]][[2]] <- format(strptime(splitDateTime[[1]][[2]],format='%H:%M',tz="EST"),'%I:%M %p') # format into readable 12-hours
         stdDateTime <- paste(splitDateTime[[1]][[1]],splitDateTime[[1]][[2]],sep=" ") # recombine formatted date and time
-        data$Date_Time[i] <- stdDateTime # column date and time is now standardized
+        data$DateTime[i] <- stdDateTime # column date and time is now standardized
     }
     
     data # return the clean data frame

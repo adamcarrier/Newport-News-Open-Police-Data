@@ -2,5 +2,11 @@
 .Rhistory
 .Rapp.history
 
-# Ignore data set
+# Ignore data sets
 data/daily-arrests.csv
+data/newport-news-accident-reports.csv
+data/newport-news-arrest-reports.csv
+data/newport-news-juvenile-reports.csv
+data/newport-news-offenses-reports.csv
+data/newport-news-field-contacts-reports.csv
+data/newport-news-theft-from-vehicle-reports.csv
