@@ -29,9 +29,9 @@ plotReports(cwd)
 ```
 
 Public Data Sets
-============
+================
 
-Public versions of the appended daily reports are stored as CSV files on the Google Cloud Platform, which I maintain:
+Public versions of the appended daily reports are available as CSV files on Google Cloud Storage, which I maintain:
 
 * Accident Reports (coming soon)
 * [Arrest Reports](https://storage.googleapis.com/newport-news-open-police-data/newport-news-arrest-reports.csv)
@@ -39,3 +39,13 @@ Public versions of the appended daily reports are stored as CSV files on the Goo
 * Offenses Reports (coming soon)
 * Field Contacts Reports (coming soon)
 * Theft from Vehicle Reports (coming soon)
+
+Roadmap
+================
+
+A list of things still to accomplish
+* Create ingest and processing R scripts for each remaining report
+* Upload CSV data set to Google Cloud storage for for each remaining report
+* Automate daily report collection using hosted `cron` job
+* Automate CSV data set upload to Google Cloud storage
+* Find public hosting for RStudio Leaflet widget
