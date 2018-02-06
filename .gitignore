@@ -1,5 +1,6 @@
-# Ignore RStudio history
+# Ignore R history
 .Rhistory
+.Rapp.history
 
 # Ignore data set
 data/daily-arrests.csv
