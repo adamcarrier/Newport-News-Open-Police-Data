@@ -19,7 +19,7 @@ If you're saavy, you could use a scheduler like `cron` to run this on a daily ba
 
 ## Plotting the reports
 
-Using the `plot-reports.R` file, you can run the `plotReports` function to automatically display every police activity stored in the CSV file data sets on a Leaflet map. For this to work, you must provide the working directory where these repo files are stored.
+Using the `plot-reports.R` file, you can run the `plotReports` function to automatically display all police activity stored in the CSV file data sets on a Leaflet map. For this to work, you must provide the working directory where these repo files are stored.
 
 Currently, only the Daily Arrest Report is plotted, as I still need to build out the other reports and loop through them to plot them all. 
 
