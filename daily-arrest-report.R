@@ -1,16 +1,4 @@
-## Dependencies
-install.packages("ggmap")
-install.packages("leaflet")
-
-require(ggmap)
-require(leaflet)
-require(ggplot2)
-
-# Mac users
-#install.packages("devtools") # needed in order to compile plotly natively
-#devtools::install_github("ropensci/plotly")
-
-plotDailyArrestReport <- function(workingDirectory) {
+getDailyArrestReport <- function(workingDirectory) {
     ## Initial set up
     url <- "https://gis2.nngov.com/ssrs/report/?rs:Name=/12-Police/Daily_Arrests_Public&rs:Command=Render&rs:Format=CSV"
     dataDirectory <- "data"
@@ -68,16 +56,7 @@ plotDailyArrestReport <- function(workingDirectory) {
         splitDateTime[[1]][[2]] <- format(strptime(splitDateTime[[1]][[2]],format='%H:%M',tz="EST"),'%I:%M %p') # format into readable 12-hours
         stdDateTime <- paste(splitDateTime[[1]][[1]],splitDateTime[[1]][[2]],sep=" ") # recombine formatted date and time
         data$Date_Time[i] <- stdDateTime # column date and time is now standardized
-        
-        # create the popup
-        popupText <- paste(
-            sep="<br/>",
-            data$Date_Time[i],
-            data$Charge[i]
-            )
-        map <- addMarkers(map,lng=data$lon[i],lat=data$lat[i],popup=popupText) # add marker to plot
     }
     
-    map # draw the Leaflet plot!
     data # return the clean data frame
 }
