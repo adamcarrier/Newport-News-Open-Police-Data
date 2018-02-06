@@ -23,7 +23,7 @@ Using the `plot-reports.R` file, you can run the `plotReports` function to autom
 
 Currently, only the Daily Arrest Report is plotted, as I still need to build out the other reports and loop through them to plot them all. 
 
- ``` r
+``` r
 cwd <- "/Users/adam/Documents/Newport News Open Police Data"
 plotReports(cwd)
 ```
@@ -43,9 +43,9 @@ Public versions of the appended daily reports are available as CSV files on Goog
 Roadmap
 ================
 
-A list of things still to accomplish
+A list of things still to accomplish:
 * Create ingest and processing R scripts for each remaining report
 * Upload CSV data set to Google Cloud storage for for each remaining report
-* Automate daily report collection using hosted `cron` job
+* Automate daily report collection using hosted `cron` job (maybe use Google App Engine Cron Service?)
 * Automate CSV data set upload to Google Cloud storage
 * Find public hosting for RStudio Leaflet widget
