@@ -27,3 +27,15 @@ Currently, only the Daily Arrest Report is plotted, as I still need to build out
 cwd <- "/Users/adam/Documents/Newport News Open Police Data"
 plotReports(cwd)
 ```
+
+Public Data Sets
+============
+
+Public versions of the appended daily reports are stored as CSV files on the Google Cloud Platform, which I maintain:
+
+* Accident Reports (coming soon)
+* [Arrest Reports](https://storage.googleapis.com/newport-news-open-police-data/newport-news-arrest-reports.csv)
+* Juvenile Reports (coming soon)
+* Offenses Reports (coming soon)
+* Field Contacts Reports (coming soon)
+* Theft from Vehicle Reports (coming soon)
