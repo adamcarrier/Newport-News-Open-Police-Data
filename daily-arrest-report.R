@@ -1,6 +1,6 @@
 ## Dependencies
-#install.packages("ggmap")
-#install.packages("leaflet")
+install.packages("ggmap")
+install.packages("leaflet")
 
 require(ggmap)
 require(leaflet)
@@ -10,12 +10,12 @@ require(ggplot2)
 #install.packages("devtools") # needed in order to compile plotly natively
 #devtools::install_github("ropensci/plotly")
 
-plotDailyArrestReport <- function(){
+plotDailyArrestReport <- function(workingDirectory) {
     ## Initial set up
     url <- "https://gis2.nngov.com/ssrs/report/?rs:Name=/12-Police/Daily_Arrests_Public&rs:Command=Render&rs:Format=CSV"
     dataDirectory <- "data"
     fileName <- "./data/daily-arrests.csv"
-    setwd("/Users/adam/Documents/Web Projects/R projects/Newport News Open Police Data/")
+    setwd(workingDirectory)
     colclasses <- c(
         "character", # Arrest_
         "character", # Date_Time
@@ -43,10 +43,10 @@ plotDailyArrestReport <- function(){
     ## Create data frame
     data <- read.csv(fileName,skip=5,colClasses=colclasses,stringsAsFactors=FALSE)
     
-    ## Data manipulation
+    ## Reformat addresses
     data$Address <- gsub("BLOCK","",data$Address) # remove "BLOCK" from addresses
     data$Address <- gsub("/","AT",data$Address) # convert cross street indicator
-    data$Address <- gsub("^0 ","1",data$Address) # remove replace addresses with house number of 0 with 1
+    data$Address <- gsub("^0 ","1",data$Address) # replace addresses with a house number of 0 with a 1
     data$Address <- trimws(data$Address) # remove trailing spaces from Address column
     data$Address <- paste(data$Address,cityName,stateName,sep=", ") # add city name to street address
     
@@ -57,11 +57,19 @@ plotDailyArrestReport <- function(){
     ## Geocode addresses to latitude and longitude
     ## From: http://www.storybench.org/geocode-csv-addresses-r/
     for(i in 1:nrow(data)) {
-        #print(data$Address[i])
-        result <- geocode(data$Address[i],output="latlona",source="google",force=TRUE)
+        # geocode and split lat and long into new columns
+        result <- geocode(data$Address[i],output="latlona",source="google",messaging=FALSE,force=TRUE)
         data$lon[i] <- as.numeric(result[1])
         data$lat[i] <- as.numeric(result[2])
-        data$geoAddress[i] <- as.character(result[3])
+
+        # reformat Date_Time
+        splitDateTime <- strsplit(data$Date_Time[i],":") # split string at colon
+        splitDateTime[[1]][[2]] <- gsub("(\\d{2})(?=\\d{2})","\\1:",splitDateTime[[1]][[2]],perl=TRUE) # add colon back into time
+        splitDateTime[[1]][[2]] <- format(strptime(splitDateTime[[1]][[2]],format='%H:%M',tz="EST"),'%I:%M %p') # format into readable 12-hours
+        stdDateTime <- paste(splitDateTime[[1]][[1]],splitDateTime[[1]][[2]],sep=" ") # recombine formatted date and time
+        data$Date_Time[i] <- stdDateTime # column date and time is now standardized
+        
+        # create the popup
         popupText <- paste(
             sep="<br/>",
             data$Date_Time[i],
@@ -71,4 +79,5 @@ plotDailyArrestReport <- function(){
     }
     
     map # draw the Leaflet plot!
+    data # return the clean data frame
 }
