@@ -1,37 +1,25 @@
 ## Dependencies
 install.packages("ggmap")
 
-getDailyArrestReport <- function(workingDirectory,dataSetDirectory="./data/") {
+getDailyAccidentReport <- function(workingDirectory,dataSetDirectory="./data/") {
     require(ggmap)
     
     ## Initial set up
-    url <- "https://gis2.nngov.com/ssrs/report/?rs:Name=/12-Police/Daily_Arrests_Public&rs:Command=Render&rs:Format=CSV"
-    fileName <- "daily-arrests.csv"
+    url <- "https://gis2.nngov.com/ssrs/report/?rs:Name=/12-Police/Daily_Accidents_Public&rs:Command=Render&rs:Format=CSV"
+    fileName <- "Daily_Accidents_Public.csv"
     destinationFile <- paste(dataSetDirectory,fileName)
     setwd(workingDirectory)
     columnNames = c(
-        "Arrest", # Arrest_
+        "ReportID", # Report_ID
         "DateTime", # Date_Time
         "Address", # Address
-        "Charge", # Charge
-        "Arrestee", # Arrestee
-        "Race", # Race
-        "Sex", # Sex
-        "Age", # Age
-        "Report", # Report_
         "RescueAmbulanceUnit", # RA
         "Officer"  # OFFICER
     )
     columnClasses <- c(
-        "character", # Arrest_
+        "character", # Report_ID
         "character", # Date_Time
         "character", # Address
-        "character", # Charge
-        "character", # Arrestee
-        "character", # Race
-        "character", # Sex
-        "character", # Age
-        "character", # Report_
         "character", # RA
         "character"  # OFFICER
         )
