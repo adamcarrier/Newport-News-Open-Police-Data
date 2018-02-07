@@ -1,7 +1,7 @@
 runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
     ## Dependencies
     install.packages("googleCloudStorageR")
-    library("googleCloudStorageR")
+    require("googleCloudStorageR")
     
     setwd(workingDirectory)
     source("cloud-storage-env-vars.R") # my Google Cloud Storage API variables

@@ -1,12 +1,12 @@
-## Dependencies
-install.packages("ggmap")
-install.packages("leaflet")
-
-require(ggmap)
-require(leaflet)
-require(ggplot2)
-
 plotReports <- function(workingDirectory,dataSetDirectory="./data/") {
+    ## Dependencies
+    install.packages("ggmap")
+    install.packages("leaflet")
+    
+    require(ggmap)
+    require(leaflet)
+    require(ggplot2)
+    
     ## Initial set up
     setwd(workingDirectory)
     

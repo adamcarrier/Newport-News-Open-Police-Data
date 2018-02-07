@@ -1,7 +1,7 @@
-## Dependencies
-source("./daily-arrest-report.R")
-
 runDailyCollection <- function(workingDirectory,dataSetDirectory="./data/") {
+    ## Dependencies
+    source("./daily-arrest-report.R")
+    
     ## Data set file names
     dailyAccidentReportFileName <- "newport-news-accident-reports.csv"
     dailyArrestReportFileName <- "newport-news-arrest-reports.csv"
