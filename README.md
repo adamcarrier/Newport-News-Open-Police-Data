@@ -35,7 +35,7 @@ Public versions of the appended daily reports are available as CSV files on Goog
 
 * [Accident Reports](https://storage.googleapis.com/newport-news-open-police-data/newport-news-accident-reports.csv)
 * [Arrest Reports](https://storage.googleapis.com/newport-news-open-police-data/newport-news-arrest-reports.csv)
-* Juvenile Reports (coming soon)
+* [Juvenile Reports](https://storage.googleapis.com/newport-news-open-police-data/newport-news-juvenile-reports.csv)
 * Offenses Reports (coming soon)
 * Field Contacts Reports (coming soon)
 * Theft from Vehicle Reports (coming soon)
@@ -45,6 +45,7 @@ Roadmap
 
 A list of things still to accomplish:
 * Create ingest and processing R scripts for each remaining report
+* Remove trailing whitespace from all ingested reports
 * Upload CSV data set to Google Cloud storage for for each remaining report
 * Automate daily report collection using hosted `cron` job (maybe use Google App Engine Cron Service?)
 * Automate CSV data set upload to Google Cloud storage

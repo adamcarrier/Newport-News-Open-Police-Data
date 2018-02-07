@@ -1,39 +1,39 @@
 ## Dependencies
 install.packages("ggmap")
 
-getDailyArrestReport <- function(workingDirectory,dataSetDirectory="./data/") {
+getDailyJuvenileReport <- function(workingDirectory,dataSetDirectory="./data/") {
     require(ggmap)
     
     ## Initial set up
-    url <- "https://gis2.nngov.com/ssrs/report/?rs:Name=/12-Police/Daily_Arrests_Public&rs:Command=Render&rs:Format=CSV"
-    fileName <- "Daily_Arrests_Public.csv"
+    url <- "https://gis2.nngov.com/ssrs/report/?rs:Name=/12-Police/Daily_Juvenile_Report_Public&rs:Command=Render&rs:Format=CSV"
+    fileName <- "Daily_Juvenile_Report_Public.csv"
     destinationFile <- paste(dataSetDirectory,fileName)
     setwd(workingDirectory)
     columnNames = c(
-        "Arrest", # Arrest_
+        "Report", # Report_1
         "DateTime", # Date_Time
-        "Address", # Address
-        "Charge", # Charge
-        "Arrestee", # Arrestee
+        "Address", # Address1
+        "Offense", # Offense
+        "Status", # Status
+        "Disposition", # Disposition1
         "Race", # Race
         "Sex", # Sex
         "Age", # Age
-        "Report", # Report_
         "RescueAmbulanceUnit", # RA
-        "Officer"  # OFFICER
+        "Officer"  # Officer
     )
     columnClasses <- c(
-        "character", # Arrest_
+        "character", # Report_1
         "character", # Date_Time
-        "character", # Address
-        "character", # Charge
-        "character", # Arrestee
+        "character", # Address1
+        "character", # Offense
+        "character", # Status
+        "character", # Disposition1
         "character", # Race
         "character", # Sex
         "character", # Age
-        "character", # Report_
         "character", # RA
-        "character"  # OFFICER
+        "character"  # Officer
         )
     cityName <- "NEWPORT NEWS"
     stateName <- "VIRGINIA"
@@ -53,7 +53,7 @@ getDailyArrestReport <- function(workingDirectory,dataSetDirectory="./data/") {
     if (file.exists(destinationFile)) file.remove(destinationFile)
     
     ## Reformating
-    data$Charge <- trimws(data$Charge) # remove trailing spaces from Charge column
+    data$Offense <- trimws(data$Offense) # remove trailing spaces from Offense column
     data$Address <- gsub("BLOCK","",data$Address) # remove "BLOCK" from addresses
     data$Address <- gsub("/","AT",data$Address) # convert cross street indicator
     data$Address <- gsub("^0 ","1",data$Address) # replace addresses with a house number of 0 with a 1

@@ -40,7 +40,7 @@ getDailyAccidentReport <- function(workingDirectory,dataSetDirectory="./data/") 
     ## Delete daily report file
     if (file.exists(destinationFile)) file.remove(destinationFile)
     
-    ## Reformat addresses
+    ## Reformating
     data$Address <- gsub("BLOCK","",data$Address) # remove "BLOCK" from addresses
     data$Address <- gsub("/","AT",data$Address) # convert cross street indicator
     data$Address <- gsub("^0 ","1",data$Address) # replace addresses with a house number of 0 with a 1
