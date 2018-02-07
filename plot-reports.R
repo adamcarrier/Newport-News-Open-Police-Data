@@ -18,7 +18,8 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     theftFromVehicleReportFileName <- "newport-news-theft-from-vehicle-reports.csv"
     
     ## Read reports
-    dailyArrestReport <- read.csv(paste(dataSetDirectory,dailyArrestReportFileName))
+    dailyAccidentReport <- read.csv(paste(dataSetDirectory,dailyAccidentReportFileName,sep="/"))
+    dailyArrestReport <- read.csv(paste(dataSetDirectory,dailyArrestReportFileName,sep="/"))
     
     ## Set up Leaflet plot
     map <- leaflet()
@@ -26,6 +27,19 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     
     ## Geocode addresses to latitude and longitude
     ## From: http://www.storybench.org/geocode-csv-addresses-r/
+    
+    ## add daily accident reports
+    for(i in 1:nrow(dailyAccidentReport)) {
+        # create the popup
+        popupText <- paste(
+            sep="<br/>",
+            dailyAccidentReport$DateTime[i],
+            "Vehicle Accident"
+        )
+        map <- addMarkers(map,lng=dailyAccidentReport$Longitude[i],lat=dailyAccidentReport$Latitude[i],popup=popupText) # add marker to plot
+    }
+    
+    ## Add daily arrest reports
     for(i in 1:nrow(dailyArrestReport)) {
         # create the popup
         popupText <- paste(
@@ -33,7 +47,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
             dailyArrestReport$DateTime[i],
             dailyArrestReport$Charge[i]
         )
-        map <- addMarkers(map,lng=dailyArrestReport$lon[i],lat=dailyArrestReport$lat[i],popup=popupText) # add marker to plot
+        map <- addMarkers(map,lng=dailyArrestReport$Longitude[i],lat=dailyArrestReport$Latitude[i],popup=popupText) # add marker to plot
     }
     
     ## Draw and export the map plot
