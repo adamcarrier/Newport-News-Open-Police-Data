@@ -2,6 +2,9 @@
 .Rhistory
 .Rapp.history
 
+# Ignore Google Cloud Storage file sync
+cloud-storage-sync.R
+
 # Ignore data sets
 data/daily-arrests.csv
 data/newport-news-accident-reports.csv

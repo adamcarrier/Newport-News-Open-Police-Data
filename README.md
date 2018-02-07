@@ -49,3 +49,4 @@ A list of things still to accomplish:
 * Automate daily report collection using hosted `cron` job (maybe use Google App Engine Cron Service?)
 * Automate CSV data set upload to Google Cloud storage
 * Find public hosting for RStudio Leaflet widget
+* Put config variables like file names into vectored lists that can be passed to multiple functions
