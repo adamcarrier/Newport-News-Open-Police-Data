@@ -2,8 +2,8 @@
 .Rhistory
 .Rapp.history
 
-# Ignore Google Cloud Storage file sync
-cloud-storage-sync.R
+# Ignore Google Cloud Storage API keys
+cloud-storage-env-vars.R
 
 # Ignore data sets
 data/daily-arrests.csv
