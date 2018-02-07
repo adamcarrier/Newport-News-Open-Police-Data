@@ -20,10 +20,10 @@ runDailyCollection <- function(workingDirectory,dataSetDirectory="./data/") {
     #theftFromVehicle # Theft from Vehicle
     
     ## Write to data sets
-    #write.csv(dailyAccidentReports,file=paste(dataSetDirectory,dailyAccidentReportFileName,sep="/"),append=TRUE)# Accident Reports
-    write.csv(dailyArrestReport,file=paste(dataSetDirectory,dailyArrestReportFileName,sep="/"),append=TRUE,sep=",") # Collect Daily Arrest Report (24 hours)
-    #write.csv(dailyJuvenileReport,file=paste(dataSetDirectory,dailyJuvenileReportFileName,sep="/"),append=TRUE) # Daily Juvenile Report
-    #write.csv(dailyOffenses,file=paste(dataSetDirectory,dailyOffensesReportFileName,sep="/"),append=TRUE) # Daily Offenses
-    #write.csv(fieldContacts,file=paste(dataSetDirectory,fieldContactsReportFileName,sep="/"),append=TRUE) # Field Contacts
-    #write.csv(theftFromVehicle,file=paste(dataSetDirectory,theftFromVehicleReportFileName,sep="/"),append=TRUE) # Theft from Vehicle
+    #write.csv(dailyAccidentReports,file=paste(dataSetDirectory,dailyAccidentReportFileName,sep=""),append=TRUE)# Accident Reports
+    write.csv(dailyArrestReport,file=paste(dataSetDirectory,dailyArrestReportFileName,sep=""),append=TRUE,sep=",") # Collect Daily Arrest Report (24 hours)
+    #write.csv(dailyJuvenileReport,file=paste(dataSetDirectory,dailyJuvenileReportFileName,sep=""),append=TRUE) # Daily Juvenile Report
+    #write.csv(dailyOffenses,file=paste(dataSetDirectory,dailyOffensesReportFileName,sep=""),append=TRUE) # Daily Offenses
+    #write.csv(fieldContacts,file=paste(dataSetDirectory,fieldContactsReportFileName,sep=""),append=TRUE) # Field Contacts
+    #write.csv(theftFromVehicle,file=paste(dataSetDirectory,theftFromVehicleReportFileName,sep=""),append=TRUE) # Theft from Vehicle
 }

@@ -1,11 +1,10 @@
-plotReports <- function(workingDirectory,dataSetDirectory="./data/") {
-    ## Dependencies
-    install.packages("ggmap")
-    install.packages("leaflet")
-    
-    require(ggmap)
+## Dependencies
+install.packages("leaflet")
+install.packages("htmlwidgets")
+
+plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileName="map.html") {
     require(leaflet)
-    require(ggplot2)
+    require(htmlwidgets)
     
     ## Initial set up
     setwd(workingDirectory)
@@ -19,7 +18,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/") {
     theftFromVehicleReportFileName <- "newport-news-theft-from-vehicle-reports.csv"
     
     ## Read reports
-    dailyArrestReport <- read.csv(paste(dataSetDirectory,dailyArrestReportFileName,sep="/"))
+    dailyArrestReport <- read.csv(paste(dataSetDirectory,dailyArrestReportFileName))
     
     ## Set up Leaflet plot
     map <- leaflet()
@@ -37,5 +36,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/") {
         map <- addMarkers(map,lng=dailyArrestReport$lon[i],lat=dailyArrestReport$lat[i],popup=popupText) # add marker to plot
     }
     
+    ## Draw and export the map plot
     map # draw the Leaflet plot!
+    saveWidget(widget=map,file=exportFileName)
 }

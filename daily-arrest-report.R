@@ -1,8 +1,13 @@
+## Dependencies
+install.packages("ggmap")
+
 getDailyArrestReport <- function(workingDirectory,dataSetDirectory="./data/") {
+    require(ggmap)
+    
     ## Initial set up
     url <- "https://gis2.nngov.com/ssrs/report/?rs:Name=/12-Police/Daily_Arrests_Public&rs:Command=Render&rs:Format=CSV"
     fileName <- "daily-arrests.csv"
-    destinationFile <- paste(dataSetDirectory,fileName,sep="/")
+    destinationFile <- paste(dataSetDirectory,fileName)
     setwd(workingDirectory)
     columnNames = c(
         "Arrest", # Arrest_
@@ -53,10 +58,6 @@ getDailyArrestReport <- function(workingDirectory,dataSetDirectory="./data/") {
     data$Address <- gsub("^0 ","1",data$Address) # replace addresses with a house number of 0 with a 1
     data$Address <- trimws(data$Address) # remove trailing spaces from Address column
     data$Address <- paste(data$Address,cityName,stateName,sep=", ") # add city name to street address
-    
-    ## Set up Leaflet plot
-    map <- leaflet()
-    map <- addTiles(map)
     
     ## Geocode addresses to latitude and longitude
     ## From: http://www.storybench.org/geocode-csv-addresses-r/
