@@ -38,12 +38,16 @@ runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
     buckets <- gcs_list_buckets(proj)
     bucket <- "newport-news-open-police-data"
     bucket_info <- gcs_get_bucket(bucket)
-    #print(bucket_info)
+    print(bucket_info)
     
     ## Download remote datasets
         # 1. download data sets one at a time
+    
+    ## get object info in the default bucket
+    objects <- gcs_list_objects(bucket=proj)
+    print(objects)
         # 2. load each downloaded data set into separate data frames
         # 3. if file exists, load it into a data frame
         # 4. append existing data frame to downloaded data frame
-        # 5. 
+        # 5. overwrite downloaded data fram back to CSV
 }
