@@ -21,6 +21,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     dailyAccidentReport <- read.csv(paste(dataSetDirectory,dailyAccidentReportFileName,sep="/"))
     dailyArrestReport <- read.csv(paste(dataSetDirectory,dailyArrestReportFileName,sep="/"))
     dailyJuvenileReport <- read.csv(paste(dataSetDirectory,dailyJuvenileReportFileName,sep="/"))
+    dailyOffensesReport <- read.csv(paste(dataSetDirectory,dailyOffensesReportFileName,sep="/"))
     
     ## Set up Leaflet plot
     map <- leaflet()
@@ -60,6 +61,17 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
             dailyJuvenileReport$Offense[i]
         )
         map <- addMarkers(map,lng=dailyJuvenileReport$Longitude[i],lat=dailyJuvenileReport$Latitude[i],popup=popupText) # add marker to plot
+    }
+    
+    ## Add daily offenses reports
+    for(i in 1:nrow(dailyOffensesReport)) {
+        # create the popup
+        popupText <- paste(
+            sep="<br/>",
+            dailyOffensesReport$DateTime[i],
+            dailyOffensesReport$Offense[i]
+        )
+        map <- addMarkers(map,lng=dailyOffensesReport$Longitude[i],lat=dailyOffensesReport$Latitude[i],popup=popupText) # add marker to plot
     }
     
     ## Draw and export the map plot
