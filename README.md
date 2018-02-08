@@ -44,10 +44,7 @@ Roadmap
 ================
 
 A list of things still to accomplish:
-* Create ingest and processing R scripts for each remaining report
 * Remove trailing whitespace from all ingested reports
-* Upload CSV data set to Google Cloud storage for for each remaining report
 * Automate daily report collection using hosted `cron` job (maybe use Google App Engine Cron Service?)
 * Automate CSV data set upload to Google Cloud storage
-* Find public hosting for RStudio Leaflet widget
-* Put config variables like file names into vectored lists that can be passed to multiple functions
+* Try to make this more DRY--Put config variables like file and column names into vectored lists that can be passed to granular worker functions
