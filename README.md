@@ -21,6 +21,8 @@ If you're saavy, you could use a scheduler like `cron` to run this on a daily ba
 
 Using the `plot-reports.R` file, you can run the `plotReports` function to automatically plot on a Leaflet map all police activity stored in the CSV data sets. It saves the plot in an HTML file that you can view from a web server. I use [MAMP](https://www.mamp.info/) on my Mac for this. On Windows, you can use [WAMP](http://www.wampserver.com/en/) or [XAMMP](https://www.apachefriends.org/index.html) to serve the HTML Leaflet plot. Notice, you must tell the function your working directory where these repo files are stored.
 
+You can view a sample of the Leaflet plot [here](https://adamcarrier.github.io/Newport-News-Open-Police-Data/).
+
 ``` r
 cwd <- "/Users/adam/Documents/Newport News Open Police Data"
 plotReports(cwd)
