@@ -24,9 +24,11 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     dailyOffensesReport <- read.csv(paste(dataSetDirectory,dailyOffensesReportFileName,sep="/"))
     
     ## Set up Leaflet plot
-    map <- leaflet()
-    map <- addTiles(map)
+    mapPlot <- leaflet()
     
+    ## Add tile groups
+    mapPlot <- addTiles(mapPlot)
+
     ## Geocode addresses to latitude and longitude
     ## From: http://www.storybench.org/geocode-csv-addresses-r/
     
@@ -38,7 +40,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
             dailyAccidentReport$DateTime[i],
             "Vehicle Accident"
         )
-        map <- addMarkers(map,lng=dailyAccidentReport$Longitude[i],lat=dailyAccidentReport$Latitude[i],popup=popupText) # add marker to plot
+        mapPlot <- addMarkers(mapPlot,lng=dailyAccidentReport$Longitude[i],lat=dailyAccidentReport$Latitude[i],popup=popupText,group="Vehicle Accidents") # add marker to plot
     }
     
     ## Add daily arrest reports
@@ -49,9 +51,9 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
             dailyArrestReport$DateTime[i],
             dailyArrestReport$Charge[i]
         )
-        map <- addMarkers(map,lng=dailyArrestReport$Longitude[i],lat=dailyArrestReport$Latitude[i],popup=popupText) # add marker to plot
+        mapPlot <- addMarkers(mapPlot,lng=dailyArrestReport$Longitude[i],lat=dailyArrestReport$Latitude[i],popup=popupText,group="Arrests") # add marker to plot
     }
-
+    
     ## Add daily juvenile reports
     for(i in 1:nrow(dailyJuvenileReport)) {
         # create the popup
@@ -60,7 +62,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
             dailyJuvenileReport$DateTime[i],
             dailyJuvenileReport$Offense[i]
         )
-        map <- addMarkers(map,lng=dailyJuvenileReport$Longitude[i],lat=dailyJuvenileReport$Latitude[i],popup=popupText) # add marker to plot
+        mapPlot <- addMarkers(mapPlot,lng=dailyJuvenileReport$Longitude[i],lat=dailyJuvenileReport$Latitude[i],popup=popupText,group="Juvenile Offenses") # add marker to plot
     }
     
     ## Add daily offenses reports
@@ -71,10 +73,17 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
             dailyOffensesReport$DateTime[i],
             dailyOffensesReport$Offense[i]
         )
-        map <- addMarkers(map,lng=dailyOffensesReport$Longitude[i],lat=dailyOffensesReport$Latitude[i],popup=popupText) # add marker to plot
+        mapPlot <- addMarkers(mapPlot,lng=dailyOffensesReport$Longitude[i],lat=dailyOffensesReport$Latitude[i],popup=popupText,group="Investigations") # add marker to plot
     }
     
+    ## Add layers control
+    mapPlot <- addLayersControl(
+        map=mapPlot,
+        overlayGroups=c("Vehicle Accidents","Arrests","Juvenile Offenses","Investigations"),
+        options=layersControlOptions(collapsed=FALSE)
+    )
+    
     ## Draw and export the map plot
-    map # draw the Leaflet plot!
-    saveWidget(widget=map,file=exportFileName)
+    ##mapPlot # draw the Leaflet plot!
+    saveWidget(widget=mapPlot,file=exportFileName)
 }
