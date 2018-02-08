@@ -5,9 +5,6 @@
 # Ignore Google Cloud Storage API keys
 cloud-storage-env-vars.R
 
-# Ignore map plots
-map.html
-
 # Ignore data sets
 data/daily-arrests.csv
 data/newport-news-accident-reports.csv

@@ -36,7 +36,7 @@ Public versions of the appended daily reports are available as CSV files on Goog
 * [Juvenile Reports](https://storage.googleapis.com/newport-news-open-police-data/newport-news-juvenile-reports.csv)
 * [Offenses Reports](https://storage.googleapis.com/newport-news-open-police-data/newport-news-offenses-reports.csv)
 * [Field Contacts Reports](https://storage.googleapis.com/newport-news-open-police-data/newport-news-field-contacts-reports.csv)
-* Theft from Vehicle Reports (coming soon)
+* [Theft from Vehicle Reports](https://storage.googleapis.com/newport-news-open-police-data/newport-news-theft-from-vehicle-reports.csv)
 
 Roadmap
 ================

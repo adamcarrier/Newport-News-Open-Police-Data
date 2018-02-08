@@ -2,7 +2,7 @@
 install.packages("leaflet")
 install.packages("htmlwidgets")
 
-plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileName="map.html") {
+plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileName="index.html") {
     require(leaflet)
     require(htmlwidgets)
     
@@ -15,7 +15,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     dailyJuvenileReportFileName <- "newport-news-juvenile-reports.csv"
     dailyOffensesReportFileName <- "newport-news-offenses-reports.csv"
     dailyFieldContactsReportFileName <- "newport-news-field-contacts-reports.csv"
-    theftFromVehicleReportFileName <- "newport-news-theft-from-vehicle-reports.csv"
+    dailyTheftFromVehicleReportFileName <- "newport-news-theft-from-vehicle-reports.csv"
     
     ## Read reports
     dailyAccidentReport <- read.csv(paste(dataSetDirectory,dailyAccidentReportFileName,sep="/"))
@@ -23,6 +23,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     dailyJuvenileReport <- read.csv(paste(dataSetDirectory,dailyJuvenileReportFileName,sep="/"))
     dailyOffensesReport <- read.csv(paste(dataSetDirectory,dailyOffensesReportFileName,sep="/"))
     dailyFieldContactsReport <- read.csv(paste(dataSetDirectory,dailyFieldContactsReportFileName,sep="/"))
+    dailyTheftFromVehicleReport <- read.csv(paste(dataSetDirectory,dailyTheftFromVehicleReportFileName,sep="/"))
     
     ## Set up Leaflet plot
     mapPlot <- leaflet()
@@ -88,10 +89,21 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
         mapPlot <- addMarkers(mapPlot,lng=dailyFieldContactsReport$Longitude[i],lat=dailyFieldContactsReport$Latitude[i],popup=popupText,group="Suspicious Activities") # add marker to plot
     }
     
+    ## Add daily theft from vehicle reports
+    for(i in 1:nrow(dailyTheftFromVehicleReport)) {
+        # create the popup
+        popupText <- paste(
+            sep="<br/>",
+            dailyTheftFromVehicleReport$DateTime[i],
+            "Theft from Vehicle"
+        )
+        mapPlot <- addMarkers(mapPlot,lng=dailyTheftFromVehicleReport$Longitude[i],lat=dailyTheftFromVehicleReport$Latitude[i],popup=popupText,group="Theft from Vehicle") # add marker to plot
+    }
+    
     ## Add layers control
     mapPlot <- addLayersControl(
         map=mapPlot,
-        overlayGroups=c("Vehicle Accidents","Arrests","Juvenile Offenses","Investigations","Suspicious Activities"),
+        overlayGroups=c("Vehicle Accidents","Arrests","Juvenile Offenses","Investigations","Suspicious Activities","Theft from Vehicle"),
         options=layersControlOptions(collapsed=FALSE)
     )
     
