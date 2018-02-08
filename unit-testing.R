@@ -6,6 +6,7 @@ dailyAccidents <- getDailyAccidentReport(cwd)
 dailyArrests <- getDailyArrestReport(cwd)
 dailyJuvenile <- getDailyJuvenileReport(cwd)
 dailyOffenses <- getDailyOffensesReport(cwd)
+dailyFieldContacts <- getDailyFieldContactsReport(cwd)
 
 ## Test daily report collection
 runDailyCollection(cwd)

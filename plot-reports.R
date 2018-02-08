@@ -14,7 +14,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     dailyArrestReportFileName <- "newport-news-arrest-reports.csv"
     dailyJuvenileReportFileName <- "newport-news-juvenile-reports.csv"
     dailyOffensesReportFileName <- "newport-news-offenses-reports.csv"
-    fieldContactsReportFileName <- "newport-news-field-contacts-reports.csv"
+    dailyFieldContactsReportFileName <- "newport-news-field-contacts-reports.csv"
     theftFromVehicleReportFileName <- "newport-news-theft-from-vehicle-reports.csv"
     
     ## Read reports
@@ -22,6 +22,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     dailyArrestReport <- read.csv(paste(dataSetDirectory,dailyArrestReportFileName,sep="/"))
     dailyJuvenileReport <- read.csv(paste(dataSetDirectory,dailyJuvenileReportFileName,sep="/"))
     dailyOffensesReport <- read.csv(paste(dataSetDirectory,dailyOffensesReportFileName,sep="/"))
+    dailyFieldContactsReport <- read.csv(paste(dataSetDirectory,dailyFieldContactsReportFileName,sep="/"))
     
     ## Set up Leaflet plot
     mapPlot <- leaflet()
@@ -76,14 +77,25 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
         mapPlot <- addMarkers(mapPlot,lng=dailyOffensesReport$Longitude[i],lat=dailyOffensesReport$Latitude[i],popup=popupText,group="Investigations") # add marker to plot
     }
     
+    ## Add daily field contacts reports
+    for(i in 1:nrow(dailyFieldContactsReport)) {
+        # create the popup
+        popupText <- paste(
+            sep="<br/>",
+            dailyFieldContactsReport$DateTime[i],
+            dailyFieldContactsReport$Reason[i]
+        )
+        mapPlot <- addMarkers(mapPlot,lng=dailyFieldContactsReport$Longitude[i],lat=dailyFieldContactsReport$Latitude[i],popup=popupText,group="Suspicious Activities") # add marker to plot
+    }
+    
     ## Add layers control
     mapPlot <- addLayersControl(
         map=mapPlot,
-        overlayGroups=c("Vehicle Accidents","Arrests","Juvenile Offenses","Investigations"),
+        overlayGroups=c("Vehicle Accidents","Arrests","Juvenile Offenses","Investigations","Suspicious Activities"),
         options=layersControlOptions(collapsed=FALSE)
     )
     
     ## Draw and export the map plot
-    ##mapPlot # draw the Leaflet plot!
+    #mapPlot # draw the Leaflet plot!
     saveWidget(widget=mapPlot,file=exportFileName)
 }
