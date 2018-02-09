@@ -11,8 +11,8 @@ Usage
 Using the `daily-collection.R` file, you can run the `runDailyCollection` function to automatically download all the daily [Newport News Police Open Data](https://www.nnva.gov/2229/Open-Data) reports and append them to CSV file data sets. Notice, you must tell the function your working directory where these repo files are stored.
 
 ``` r
-cwd <- "/Users/adam/Documents/Newport News Open Police Data"
-runDailyCollection(cwd)
+repo <- "/Users/adam/Documents/Newport News Open Police Data"
+runDailyCollection(repo)
 ```
 
 If you're saavy, you could use a scheduler like `cron` to run this on a daily basis after midnight. This would allow you to create your own database of of police reports.
@@ -24,8 +24,8 @@ Using the `plot-reports.R` file, you can run the `plotReports` function to autom
 You can view a sample of the Leaflet plot [here](https://adamcarrier.github.io/Newport-News-Open-Police-Data/).
 
 ``` r
-cwd <- "/Users/adam/Documents/Newport News Open Police Data"
-plotReports(cwd)
+repo <- "/Users/adam/Documents/Newport News Open Police Data"
+plotReports(repo)
 ```
 
 Public Data Sets
