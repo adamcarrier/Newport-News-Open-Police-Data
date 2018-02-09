@@ -46,5 +46,4 @@ Roadmap
 A list of things still to accomplish:
 * Remove trailing whitespace from all ingested reports
 * Automate daily report collection using hosted `cron` job (maybe use Google App Engine Cron Service?)
-* Automate CSV data set upload to Google Cloud storage
 * Try to make this more DRY--Put config variables like file and column names into vectored lists that can be passed to granular worker functions
