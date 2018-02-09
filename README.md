@@ -1,7 +1,7 @@
 Newport-News-Open-Police-Data
 =============================
 
-My attempts to collect, save, and visualize daily police reports, which are listed on the [Newport News Police Open Data](https://www.nnva.gov/2229/Open-Data) page.
+My attempts at using the R language to collect, save, and visualize daily police reports, which are listed on the [Newport News Police Open Data](https://www.nnva.gov/2229/Open-Data) page.
 
 Usage
 ============
@@ -12,6 +12,7 @@ Using the `daily-collection.R` file, you can run the `runDailyCollection` functi
 
 ``` r
 repo <- "/Users/adam/Documents/Newport News Open Police Data"
+source("/Users/adam/Documents/Newport News Open Police Data/daily-collection.R")
 runDailyCollection(repo)
 ```
 
@@ -25,6 +26,7 @@ You can view a sample of the Leaflet plot [here](https://adamcarrier.github.io/N
 
 ``` r
 repo <- "/Users/adam/Documents/Newport News Open Police Data"
+source("/Users/adam/Documents/Newport News Open Police Data/plot-reports.R")
 plotReports(repo)
 ```
 
