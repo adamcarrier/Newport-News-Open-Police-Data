@@ -6,14 +6,6 @@ runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
     setwd(workingDirectory)
     source("cloud-storage-env-vars.R") # my Google Cloud Storage API variables
     
-    ## Data set file names
-    dailyAccidentReportFileName <- "newport-news-accident-reports.csv"
-    dailyArrestReportFileName <- "newport-news-arrest-reports.csv"
-    dailyJuvenileReportFileName <- "newport-news-juvenile-reports.csv"
-    dailyOffensesReportFileName <- "newport-news-offenses-reports.csv"
-    dailyfieldContactsReportFileName <- "newport-news-field-contacts-reports.csv"
-    dailyTheftFromVehicleReportFileName <- "newport-news-theft-from-vehicle-reports.csv"
-    
     ## Set Google Cloud Storage environment variables
     ## From: https://cran.r-project.org/web/packages/googleCloudStorageR/vignettes/googleCloudStorageR.html
     # for OAuth 2.0 - "R clients" app ID
@@ -37,13 +29,13 @@ runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
     cloudStorageFiles <- gcs_list_objects() # get a data frame listing all the files with their storage meta data
     
     ## Download each data set as CSV
-    for(i in 1:nrow(cloudStorageFiles)) {
-        gcs_get_object(cloudStorageFiles$name[[i]],saveToDisk=paste(dataSetDirectory,cloudStorageFiles$name[[i]],sep=""),overwrite=TRUE)
-    }
+    #for(i in 1:nrow(cloudStorageFiles)) {
+    #    gcs_get_object(cloudStorageFiles$name[[i]],saveToDisk=paste(dataSetDirectory,cloudStorageFiles$name[[i]],sep=""),overwrite=TRUE)
+    #}
     
     ## Merge old and new data sets
     
-    ## Upload each data set as CSV
+    ## Upload each data set as CSV --only files listed in the cloudStorageFiles data frame will get uploaded
     for(i in 1:nrow(cloudStorageFiles)) {
         gcs_upload(paste(dataSetDirectory,cloudStorageFiles$name[[i]],sep=""),name=cloudStorageFiles$name[[i]])
     }
