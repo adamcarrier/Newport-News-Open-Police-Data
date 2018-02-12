@@ -10,3 +10,4 @@ R CMD BATCH cron-job.R
 # commit updated index.html Leaflet map
 git add index.html
 git commit -m "Daily update"
+git push
