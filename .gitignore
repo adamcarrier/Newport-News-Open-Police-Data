@@ -1,6 +1,7 @@
 # Ignore R history
 .Rhistory
 .Rapp.history
+.RData
 
 # Ignore shell script output
 cron-job.Rout
