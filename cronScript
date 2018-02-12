@@ -1,0 +1,3 @@
+#!/bin/bash
+cd "/Users/adam/Documents/Web Projects/Personal/Newport-News-Open-Police-Data"
+R CMD BATCH cron-job.R
