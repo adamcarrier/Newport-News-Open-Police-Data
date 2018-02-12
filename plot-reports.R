@@ -109,5 +109,5 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     
     ## Draw and export the map plot
     #mapPlot # draw the Leaflet plot!
-    saveWidget(widget=mapPlot,file=exportFileName)
+    saveWidget(widget=mapPlot,file=exportFileName,selfcontained=TRUE,libdir=NULL,title="Newport News Open Police Data")
 }

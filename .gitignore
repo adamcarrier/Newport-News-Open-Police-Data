@@ -3,7 +3,7 @@
 .Rapp.history
 
 # Ignore shell script output
-a.Rout
+cron-job.Rout
 
 # Ignore Google Cloud Storage API keys
 cloud-storage-env-vars.R
