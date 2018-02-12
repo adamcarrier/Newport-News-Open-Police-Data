@@ -30,6 +30,15 @@ source("/Users/adam/Documents/Newport News Open Police Data/plot-reports.R")
 plotReports(repo)
 ```
 
+## Automatic data collection
+
+I've included some scripts for automating the entire process of downloading and cleaning the daily CSVs, uploading them to a Google Cloud Storage account (via API keys), and creating the HTML Leaflet plot.
+
+Modify them for your needs, but here's how they work for me:
+
+* `cron-job.R`: This R script automates the jobs. You must change the `repo` variable to point to your repo directory.
+* `cronScript`: This bash shell script will call the `cron-job.R` R script to run the jobs. It then pushes the updated `index.html` Leaflet plot to your fork of this repo. I call this script daily, as you'd guess, via `cron` on my Mac.
+
 Public Data Sets
 ================
 
@@ -47,5 +56,4 @@ Roadmap
 
 A list of things still to accomplish:
 * Remove trailing whitespace from all ingested reports
-* Automate daily report collection using hosted `cron` job (maybe use Google App Engine Cron Service?)
 * Try to make this more DRY--Put config variables like file and column names into vectored lists that can be passed to granular worker functions
