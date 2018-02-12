@@ -2,6 +2,9 @@
 .Rhistory
 .Rapp.history
 
+# Ignore shell script output
+a.Rout
+
 # Ignore Google Cloud Storage API keys
 cloud-storage-env-vars.R
 
