@@ -39,6 +39,12 @@ Modify them for your needs, but here's how they work for me:
 * `cron-job.R`: This R script automates the jobs. You must change the `repo` variable to point to your repo directory.
 * `cronScript`: This bash shell script will call the `cron-job.R` R script to run the jobs. It then pushes the updated `index.html` Leaflet plot to your fork of this repo. I call this script daily, as you'd guess, via `cron` on my Mac.
 
+**Just one caveat...**
+
+Before running the Leaflet plot via R on a command-line, I suggest you also install [Pandoc](https://pandoc.org/installing.html). On a Mac, you'd need to do this via [Homebrew](https://brew.sh/). Pandoc is responsible for combining and encoding all the Leaflet HTML and JavaScript assets into the single 'index.html' file. Pandoc is included with [RStudio](https://www.rstudio.com/)'s binaries and runs automatically via the GUI, but it's unavailable if you're running R headless.
+
+If you don't install [Pandoc](https://pandoc.org/installing.html), you'll still get the 'index.html' file, but you'll also get a subfolder folder in the repo with all the assets needed to run Leaflet--it's quite a lot of files.
+
 Public Data Sets
 ================
 
