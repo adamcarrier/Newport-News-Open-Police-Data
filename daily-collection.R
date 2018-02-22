@@ -20,7 +20,7 @@ runDailyCollection <- function(workingDirectory,dataSetDirectory="./data/") {
     dailyArrestReport <- getDailyArrestReport(workingDirectory) # Daily Arrest Report
     dailyJuvenileReport <- getDailyJuvenileReport(workingDirectory) # Daily Juvenile Report
     dailyOffenses <- getDailyOffensesReport(workingDirectory) # Daily Offenses Report
-    dailyfieldContacts <- getDailyFieldContactsReport(workingDirectory)# Daily Field Contacts Report
+    dailyfieldContacts <- getDailyFieldContactsReport(workingDirectory) # Daily Field Contacts Report
     dailyTheftFromVehicle <- getDailyTheftFromVehicleReport(workingDirectory) # Daily Theft from Vehicle Report
     
     ## Write to data sets
