@@ -53,11 +53,10 @@ getDailyArrestReport <- function(workingDirectory,dataSetDirectory="./data/") {
     if (file.exists(destinationFile)) file.remove(destinationFile)
     
     ## Reformating
-    data$Charge <- trimws(data$Charge) # remove trailing spaces from Charge column
+    data <- data.frame(lapply(data,function(x) if(class(x)=="character") trimws(x) else(x)),stringsAsFactors=FALSE) # remove trailing whitespace
     data$Address <- gsub("BLOCK","",data$Address) # remove "BLOCK" from addresses
     data$Address <- gsub("/","AT",data$Address) # convert cross street indicator
     data$Address <- gsub("^0 ","1",data$Address) # replace addresses with a house number of 0 with a 1
-    data$Address <- trimws(data$Address) # remove trailing spaces from Address column
     data$Address <- paste(data$Address,cityName,stateName,sep=", ") # add city name to street address
     
     ## Geocode addresses to latitude and longitude

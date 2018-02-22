@@ -61,5 +61,5 @@ Roadmap
 ================
 
 A list of things still to accomplish:
-* Remove trailing whitespace from all ingested reports
+* Make the public data sets a daily log
 * Try to make this more DRY--Put config variables like file and column names into vectored lists that can be passed to granular worker functions
