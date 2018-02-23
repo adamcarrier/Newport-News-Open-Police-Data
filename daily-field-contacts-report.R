@@ -22,17 +22,16 @@ getDailyFieldContactsReport <- function(workingDirectory,dataSetDirectory="./dat
         "Officer"  # Officer
     )
     columnClasses <- c(
-        "character", # Arrest_
+        "character", # Field_ID
         "character", # Date_Time
         "character", # Address
-        "character", # Charge
-        "character", # Arrestee
+        "character", # Reason
+        "character", # Disposition
         "character", # Race
         "character", # Sex
         "character", # Age
-        "character", # Report_
         "character", # RA
-        "character"  # OFFICER
+        "character" # Officer
         )
     cityName <- "NEWPORT NEWS"
     stateName <- "VIRGINIA"

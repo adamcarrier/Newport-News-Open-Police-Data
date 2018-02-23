@@ -59,14 +59,20 @@ runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
     
     ## Merge previous and new data sets
     ## Consider doing one data set merge at a time and then using rm() on each data frame to save memory space
-    #dailyAccidentReport <- rbind(oldDailyAccidentReport,dailyAccidentReport,stringsAsFactors=FALSE) # Daily Accident Report
-    #dailyArrestReport <- rbind(oldDailyArrestReport,dailyArrestReport,stringsAsFactors=FALSE) # Daily Arrest Report
-    #dailyJuvenileReport <- rbind(oldDailyJuvenileReport,dailyJuvenileReport,stringsAsFactors=FALSE) # Daily Juvenile Report
-    #dailyOffenses <- rbind(oldDailyOffenses,dailyOffenses,stringsAsFactors=FALSE) # Daily Offenses Report
-    #dailyfieldContacts <- rbind(oldDailyfieldContacts,dailyfieldContacts,stringsAsFactors=FALSE) # Daily Field Contacts Report
-    #dailyTheftFromVehicle <- rbind(oldDailyTheftFromVehicle,dailyTheftFromVehicle,stringsAsFactors=FALSE) # Daily Theft from Vehicle Report
+    dailyAccidentReport <- rbind(oldDailyAccidentReport,dailyAccidentReport,stringsAsFactors=FALSE) # Daily Accident Report
+    dailyArrestReport <- rbind(oldDailyArrestReport,dailyArrestReport,stringsAsFactors=FALSE) # Daily Arrest Report
+    dailyJuvenileReport <- rbind(oldDailyJuvenileReport,dailyJuvenileReport,stringsAsFactors=FALSE) # Daily Juvenile Report
+    dailyOffenses <- rbind(oldDailyOffenses,dailyOffenses,stringsAsFactors=FALSE) # Daily Offenses Report
+    dailyfieldContacts <- rbind(oldDailyfieldContacts,dailyfieldContacts,stringsAsFactors=FALSE) # Daily Field Contacts Report
+    dailyTheftFromVehicle <- rbind(oldDailyTheftFromVehicle,dailyTheftFromVehicle,stringsAsFactors=FALSE) # Daily Theft from Vehicle Report
     
-    ## Remove duplicate observation rows
+    ## Remove duplicate rows, based on unique values in the first column, Report/Arrest/Field ID
+    dailyAccidentReport <- dailyAccidentReport[!duplicated(dailyAccidentReport[,1]),] # Daily Accident Report
+    dailyArrestReport <- dailyArrestReport[!duplicated(dailyArrestReport[,1]),] # Daily Arrest Report
+    dailyJuvenileReport <- dailyJuvenileReport[!duplicated(dailyJuvenileReport[,1]),] # Daily Juvenile Report
+    dailyOffenses <- dailyOffenses[!duplicated(dailyOffenses[,1]),] # Daily Offenses Report
+    dailyfieldContacts <- dailyfieldContacts[!duplicated(dailyfieldContacts[,1]),] # Daily Field Contacts Report
+    dailyTheftFromVehicle <- dailyTheftFromVehicle[!duplicated(dailyTheftFromVehicle[,1]),] # Daily Theft from Vehicle Report
     
     ## Sort by date
     

@@ -16,7 +16,7 @@ source("/Users/adam/Documents/Newport News Open Police Data/daily-collection.R")
 runDailyCollection(repo)
 ```
 
-If you're saavy, you could use a scheduler like `cron` to run this on a daily basis after midnight. This would allow you to create your own database of of police reports.
+If you're saavy, you could use a scheduler like `cron` to run this on a daily basis after midnight. This would allow you to create your own daily snapshot of police reports.
 
 ## Plotting the reports
 
@@ -60,6 +60,8 @@ Public versions of the appended daily reports are available as CSV files on Goog
 Roadmap
 ================
 
-A list of things still to accomplish:
-* Make the public data sets a daily log
+A list of things still to accomplish, mostly tidy data tasks:
+* Replace empty cells with NA values
+* Break DateTime column into separate columns
+* Sort data sets by date
 * Try to make this more DRY--Put config variables like file and column names into vectored lists that can be passed to granular worker functions
