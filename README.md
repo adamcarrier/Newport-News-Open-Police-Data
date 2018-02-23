@@ -60,7 +60,34 @@ Public versions of the appended daily reports are available as CSV files on Goog
 Roadmap
 ================
 
-A list of things still to accomplish, mostly tidy data tasks:
+A list of things still to accomplish:
+
+Need to incorporate these daily arrest and offense reports that don't show up on the daily CSV data sets:
+
+*Daily Offense Reports*
+
+* [Sunday](https://www2.nngov.com/newport-news/offenses/suntxt.htm)
+* [Monday](https://www2.nngov.com/newport-news/offenses/montxt.htm)
+* [Tuesday](https://www2.nngov.com/newport-news/offenses/tuetxt.htm)
+* [Wednesday](https://www2.nngov.com/newport-news/offenses/wedtxt.htm)
+* [Thursday](https://www2.nngov.com/newport-news/offenses/thutxt.htm)
+* [Friday](https://www2.nngov.com/newport-news/offenses/fritxt.htm)
+* [Saturday](https://www2.nngov.com/newport-news/offenses/sattxt.htm)
+
+*Daily Arrest Reports*
+
+* [Sunday](https://www2.nngov.com/newport-news/arrests/suntxt.htm)
+* [Monday](https://www2.nngov.com/newport-news/arrests/montxt.htm)
+* [Tuesday](https://www2.nngov.com/newport-news/arrests/tuetxt.htm)
+* [Wednesday](https://www2.nngov.com/newport-news/arrests/wedtxt.htm)
+* [Thursday](https://www2.nngov.com/newport-news/arrests/thutxt.htm)
+* [Friday](https://www2.nngov.com/newport-news/arrests/fritxt.htm)
+* [Saturday](https://www2.nngov.com/newport-news/arrests/sattxt.htm)
+
+* Inclue `Precinct`, `Beat`, and `ReportingArea` in data sets
+* Correct column name `RescueAmbulanceUnit` to `ReportingArea`
+
+Tidy data tasks:
 * Replace empty cells with NA values
 * Break DateTime column into separate columns
 * Sort data sets by date
