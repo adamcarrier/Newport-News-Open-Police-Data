@@ -82,6 +82,14 @@ Need to incorporate these daily arrest and offense reports that don't show up on
 * [Friday](https://www2.nngov.com/newport-news/arrests/fritxt.htm)
 * [Saturday](https://www2.nngov.com/newport-news/arrests/sattxt.htm)
 
+*Things I've learned:*
+
+* Arrest IDs can have multiple charges, which are all shown on the *Daily Arrest Reports*. In the `Daily Arrest Report (24 hours)` on the [Newport News Police Open Data](https://www.nnva.gov/2229/Open-Data) page, only the first charge is listed.
+
+* The times of arrest on the *Daily Arrest Reports* do not necessarily match the times listed on the `Daily Arrest Report (24 hours)`. For my purposes, the earliest times will be kept.
+
+* The *Daily Offense Reports* show the `Beat` number, whereas the `Daily Offenses` report on the [Newport News Police Open Data](https://www.nnva.gov/2229/Open-Data) page does not.
+
 *More to do:*
 
 * Include `Precinct`, `Beat`, and `ReportingArea` in data sets
