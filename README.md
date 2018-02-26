@@ -6,7 +6,8 @@ My attempts at using the R language to collect, save, and visualize daily police
 Usage
 ============
 
-## Daily report collection
+Daily report collection
+-----------------------
 
 Using the `daily-collection.R` file, you can run the `runDailyCollection` function to automatically download all the daily [Newport News Police Open Data](https://www.nnva.gov/2229/Open-Data) reports and append them to CSV file data sets. Notice, you must tell the function your working directory where these repo files are stored.
 
@@ -18,7 +19,8 @@ runDailyCollection(repo)
 
 If you're saavy, you could use a scheduler like `cron` to run this on a daily basis after midnight. This would allow you to create your own daily snapshot of police reports.
 
-## Plotting the reports
+Plotting the reports
+--------------------
 
 Using the `plot-reports.R` file, you can run the `plotReports` function to automatically plot on a Leaflet map all police activity stored in the CSV data sets. It saves the plot in an HTML file that you can view from a web server. I use [MAMP](https://www.mamp.info/) on my Mac for this. On Windows, you can use [WAMP](http://www.wampserver.com/en/) or [XAMMP](https://www.apachefriends.org/index.html) to serve the HTML Leaflet plot. Notice, you must tell the function your working directory where these repo files are stored.
 
@@ -30,7 +32,8 @@ source("/Users/adam/Documents/Newport News Open Police Data/plot-reports.R")
 plotReports(repo)
 ```
 
-## Automatic data collection
+Automatic data collection
+-------------------------
 
 I've included some scripts for automating the entire process of downloading and cleaning the daily CSVs, uploading them to a Google Cloud Storage account (via API keys), and creating the HTML Leaflet plot.
 
@@ -82,7 +85,8 @@ Need to incorporate these daily arrest and offense reports that don't show up on
 * [Friday](https://www2.nngov.com/newport-news/arrests/fritxt.htm)
 * [Saturday](https://www2.nngov.com/newport-news/arrests/sattxt.htm)
 
-*Things I've learned:*
+Things I've learned
+--------------------
 
 * Arrest IDs can have multiple charges, which are all shown on the *Daily Arrest Reports*. In the `Daily Arrest Report (24 hours)` on the [Newport News Police Open Data](https://www.nnva.gov/2229/Open-Data) page, only the first charge is listed.
 
@@ -90,12 +94,14 @@ Need to incorporate these daily arrest and offense reports that don't show up on
 
 * The *Daily Offense Reports* show the `Beat` number, whereas the `Daily Offenses` report on the [Newport News Police Open Data](https://www.nnva.gov/2229/Open-Data) page does not.
 
-*More to do:*
+More to do
+----------
 
 * Include `Precinct`, `Beat`, and `ReportingArea` in data sets
 * Correct column name `RescueAmbulanceUnit` to `ReportingArea`
 
-*Tidy data tasks:*
+Tidy data tasks
+---------------
 
 * Replace empty cells with NA values
 * Break DateTime column into separate columns
