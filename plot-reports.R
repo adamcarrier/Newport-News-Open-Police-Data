@@ -50,7 +50,8 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
         # create the popup
         popupText <- paste(
             sep="<br/>",
-            dailyArrestReport$DateTime[i],
+            dailyArrestReport$Date[i],
+            dailyArrestReport$Time[i],
             dailyArrestReport$Charge[i]
         )
         mapPlot <- addMarkers(mapPlot,lng=dailyArrestReport$Longitude[i],lat=dailyArrestReport$Latitude[i],popup=popupText,group="Arrests") # add marker to plot
