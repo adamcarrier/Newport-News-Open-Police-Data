@@ -18,12 +18,12 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     dailyTheftFromVehicleReportFileName <- "newport-news-theft-from-vehicle-reports.csv"
     
     ## Read reports
-    dailyAccidentReport <- read.csv(paste(dataSetDirectory,dailyAccidentReportFileName,sep="/"))
-    dailyArrestReport <- read.csv(paste(dataSetDirectory,dailyArrestReportFileName,sep="/"))
-    dailyJuvenileReport <- read.csv(paste(dataSetDirectory,dailyJuvenileReportFileName,sep="/"))
-    dailyOffensesReport <- read.csv(paste(dataSetDirectory,dailyOffensesReportFileName,sep="/"))
-    dailyFieldContactsReport <- read.csv(paste(dataSetDirectory,dailyFieldContactsReportFileName,sep="/"))
-    dailyTheftFromVehicleReport <- read.csv(paste(dataSetDirectory,dailyTheftFromVehicleReportFileName,sep="/"))
+    dailyAccidentReport <- read.csv(paste(dataSetDirectory,dailyAccidentReportFileName,sep="/"),stringsAsFactors = FALSE)
+    dailyArrestReport <- read.csv(paste(dataSetDirectory,dailyArrestReportFileName,sep="/"),stringsAsFactors = FALSE)
+    dailyJuvenileReport <- read.csv(paste(dataSetDirectory,dailyJuvenileReportFileName,sep="/"),stringsAsFactors = FALSE)
+    dailyOffensesReport <- read.csv(paste(dataSetDirectory,dailyOffensesReportFileName,sep="/"),stringsAsFactors = FALSE)
+    dailyFieldContactsReport <- read.csv(paste(dataSetDirectory,dailyFieldContactsReportFileName,sep="/"),stringsAsFactors = FALSE)
+    dailyTheftFromVehicleReport <- read.csv(paste(dataSetDirectory,dailyTheftFromVehicleReportFileName,sep="/"),stringsAsFactors = FALSE)
     
     ## Set up Leaflet plot
     mapPlot <- leaflet()
