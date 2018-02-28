@@ -63,7 +63,7 @@ Public versions of the appended daily reports are available as CSV files on Goog
 Roadmap
 ================
 
-Need to incorporate these daily arrest and offense reports that don't show up on the CSV data sets:
+Need to incorporate these daily arrest and offense reports, since they list additional *charges* that don't show up on the CSV data sets (See [Things I've learned](https://github.com/adamcarrier/Newport-News-Open-Police-Data#things-ive-learned) below):
 
 *Daily Offense Reports:*
 
