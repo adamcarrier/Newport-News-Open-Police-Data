@@ -48,11 +48,10 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     ## Add daily arrest reports
     for(i in 1:nrow(dailyArrestReport)) {
         # create the popup
-        popupText <- paste(
-            sep="<br/>",
-            dailyArrestReport$Date[i],
-            dailyArrestReport$Time[i],
-            dailyArrestReport$Charge[i]
+        popupText <- paste( 
+            paste(c(dailyArrestReport$Date[i],dailyArrestReport$Time[i]), collapse=" "),
+            dailyArrestReport$Charge[i],
+            sep="<br/>"
         )
         mapPlot <- addMarkers(mapPlot,lng=dailyArrestReport$Longitude[i],lat=dailyArrestReport$Latitude[i],popup=popupText,group="Arrests") # add marker to plot
     }
@@ -71,10 +70,10 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     ## Add daily offenses reports
     for(i in 1:nrow(dailyOffensesReport)) {
         # create the popup
-        popupText <- paste(
-            sep="<br/>",
-            dailyOffensesReport$DateTime[i],
-            dailyOffensesReport$Offense[i]
+        popupText <- paste( 
+            paste(c(dailyOffensesReport$Date[i],dailyOffensesReport$Time[i]), collapse=" "),
+            dailyOffensesReport$Offense[i],
+            sep="<br/>"
         )
         mapPlot <- addMarkers(mapPlot,lng=dailyOffensesReport$Longitude[i],lat=dailyOffensesReport$Latitude[i],popup=popupText,group="Investigations") # add marker to plot
     }

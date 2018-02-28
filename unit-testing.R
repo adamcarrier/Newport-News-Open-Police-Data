@@ -1,5 +1,6 @@
 ## Set repo working directory
 repo <- "/Users/adam/Documents/Web Projects/Personal/Newport-News-Open-Police-Data"
+setwd(repo)
 
 ## Dependencies
 source("./daily-accident-report.R")
