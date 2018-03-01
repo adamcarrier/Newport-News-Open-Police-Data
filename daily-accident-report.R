@@ -7,13 +7,13 @@ getDailyAccidentReport <- function(workingDirectory,dataSetDirectory="./data/") 
     ## Initial set up
     url <- "https://gis2.nngov.com/ssrs/report/?rs:Name=/12-Police/Daily_Accidents_Public&rs:Command=Render&rs:Format=CSV"
     fileName <- "Daily_Accidents_Public.csv"
-    destinationFile <- paste(dataSetDirectory,fileName)
+    destinationFile <- paste0(dataSetDirectory,fileName)
     setwd(workingDirectory)
     columnNames = c(
         "ReportID", # Report_ID
         "DateTime", # Date_Time
         "Address", # Address
-        "RescueAmbulanceUnit", # RA
+        "ReportingArea", # RA
         "Officer"  # OFFICER
     )
     columnClasses <- c(
@@ -59,9 +59,13 @@ getDailyAccidentReport <- function(workingDirectory,dataSetDirectory="./data/") 
         splitDateTime <- strsplit(data$DateTime[i],":") # split string at colon
         splitDateTime[[1]][[2]] <- gsub("(\\d{2})(?=\\d{2})","\\1:",splitDateTime[[1]][[2]],perl=TRUE) # add colon back into time
         splitDateTime[[1]][[2]] <- format(strptime(splitDateTime[[1]][[2]],format='%H:%M',tz="EST"),'%I:%M %p') # format into readable 12-hours
-        stdDateTime <- paste(splitDateTime[[1]][[1]],splitDateTime[[1]][[2]],sep=" ") # recombine formatted date and time
-        data$DateTime[i] <- stdDateTime # column date and time is now standardized
+        data$Date[i] <- splitDateTime[[1]][[1]] # split into Date column
+        data$Time[i] <- splitDateTime[[1]][[2]] # split into Time column
     }
+    
+    ## Swap out DateTime for tidy Date and Time columns
+    data <- subset(data, select = -DateTime ) # drop DateTime column
+    data <- data[,c("ReportID", "Date", "Time", "Address", "ReportingArea", "Officer", "Longitude", "Latitude")] # new column order
     
     data # return the clean data frame
 }

@@ -37,10 +37,10 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     ## add daily accident reports
     for(i in 1:nrow(dailyAccidentReport)) {
         # create the popup
-        popupText <- paste(
-            sep="<br/>",
-            dailyAccidentReport$DateTime[i],
-            "Vehicle Accident"
+        popupText <- paste( 
+          paste(c(dailyAccidentReport$Date[i],dailyAccidentReport$Time[i]), collapse=" "),
+          "Vehicle Accident",
+          sep="<br/>"
         )
         mapPlot <- addMarkers(mapPlot,lng=dailyAccidentReport$Longitude[i],lat=dailyAccidentReport$Latitude[i],popup=popupText,group="Vehicle Accidents") # add marker to plot
     }
