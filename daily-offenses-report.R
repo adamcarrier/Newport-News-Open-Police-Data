@@ -7,7 +7,7 @@ getDailyOffensesReport <- function(workingDirectory,dataSetDirectory="./data/") 
     ## Initial set up
     url <- "https://gis2.nngov.com/ssrs/report/?rs:Name=/12-Police/Daily_Offenses_Public&rs:Command=Render&rs:Format=CSV"
     fileName <- "Daily_Offenses_Public.csv"
-    destinationFile <- paste0(dataSetDirectory,downloadFile)
+    destinationFile <- paste0(dataSetDirectory,fileName)
     setwd(workingDirectory)
     columnNames = c(
         "Report", # Report
