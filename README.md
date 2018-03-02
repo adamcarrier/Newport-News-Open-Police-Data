@@ -97,13 +97,11 @@ Things I've learned
 More to do
 ----------
 
-* Include `Precinct`, `Beat`, and `ReportingArea` in data sets
-* Correct column name `RescueAmbulanceUnit` to `ReportingArea`
+* Include `Precinct` and `Beat` in data sets
 
 Tidy data tasks
 ---------------
 
 * Replace empty cells with NA values
-* Break DateTime column into separate columns
 * Sort data sets by date
 * Try to make this more DRY--Put config variables like file and column names into vectored lists that can be passed to granular worker functions
