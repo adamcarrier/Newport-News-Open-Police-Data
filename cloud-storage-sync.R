@@ -2,6 +2,9 @@
 install.packages("googleCloudStorageR")
 
 runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
+    require(lubridate)
+    require(plyr)
+    
     ## Initial set up
     setwd(workingDirectory)
     source("cloud-storage-env-vars.R") # my Google Cloud Storage API variables
@@ -42,47 +45,61 @@ runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
     }
     
     ## Create data frames from new data sets
-    dailyAccidentReport <- read.csv(paste0(dataSetDirectory,dailyAccidentReportFileName),stringsAsFactors=FALSE) # Daily Accident Report
-    dailyArrestReport <- read.csv(paste0(dataSetDirectory,dailyArrestReportFileName),stringsAsFactors=FALSE) # Daily Arrest Report
-    dailyJuvenileReport <- read.csv(paste0(dataSetDirectory,dailyJuvenileReportFileName),stringsAsFactors=FALSE) # Daily Juvenile Report
-    dailyOffenses <- read.csv(paste0(dataSetDirectory,dailyOffensesReportFileName),stringsAsFactors=FALSE) # Daily Offenses Report
-    dailyfieldContacts <- read.csv(paste0(dataSetDirectory,dailyfieldContactsReportFileName),stringsAsFactors=FALSE) # Daily Field Contacts Report
-    dailyTheftFromVehicle <- read.csv(paste0(dataSetDirectory,dailyTheftFromVehicleReportFileName),stringsAsFactors=FALSE) # Daily Theft from Vehicle Report
+    dailyAccidentReport <- read.csv(paste0(dataSetDirectory,dailyAccidentReportFileName),stringsAsFactors=FALSE)
+    dailyArrestReport <- read.csv(paste0(dataSetDirectory,dailyArrestReportFileName),stringsAsFactors=FALSE)
+    dailyJuvenileReport <- read.csv(paste0(dataSetDirectory,dailyJuvenileReportFileName),stringsAsFactors=FALSE)
+    dailyOffenses <- read.csv(paste0(dataSetDirectory,dailyOffensesReportFileName),stringsAsFactors=FALSE)
+    dailyfieldContacts <- read.csv(paste0(dataSetDirectory,dailyfieldContactsReportFileName),stringsAsFactors=FALSE)
+    dailyTheftFromVehicle <- read.csv(paste0(dataSetDirectory,dailyTheftFromVehicleReportFileName),stringsAsFactors=FALSE)
 
     ## Create data frames from previous (old) data sets
-    oldDailyAccidentReport <- read.csv(paste0(dataSetDirectory,"previous-",dailyAccidentReportFileName),stringsAsFactors=FALSE) # Daily Accident Report
-    oldDailyArrestReport <- read.csv(paste0(dataSetDirectory,"previous-",dailyArrestReportFileName),stringsAsFactors=FALSE) # Daily Arrest Report
-    oldDailyJuvenileReport <- read.csv(paste0(dataSetDirectory,"previous-",dailyJuvenileReportFileName),stringsAsFactors=FALSE) # Daily Juvenile Report
-    oldDailyOffenses <- read.csv(paste0(dataSetDirectory,"previous-",dailyOffensesReportFileName),stringsAsFactors=FALSE) # Daily Offenses Report
-    oldDailyfieldContacts <- read.csv(paste0(dataSetDirectory,"previous-",dailyfieldContactsReportFileName),stringsAsFactors=FALSE) # Daily Field Contacts Report
-    oldDailyTheftFromVehicle <- read.csv(paste0(dataSetDirectory,"previous-",dailyTheftFromVehicleReportFileName),stringsAsFactors=FALSE) # Daily Theft from Vehicle Report 
+    oldDailyAccidentReport <- read.csv(paste0(dataSetDirectory,"previous-",dailyAccidentReportFileName),stringsAsFactors=FALSE)
+    oldDailyArrestReport <- read.csv(paste0(dataSetDirectory,"previous-",dailyArrestReportFileName),stringsAsFactors=FALSE)
+    oldDailyJuvenileReport <- read.csv(paste0(dataSetDirectory,"previous-",dailyJuvenileReportFileName),stringsAsFactors=FALSE)
+    oldDailyOffenses <- read.csv(paste0(dataSetDirectory,"previous-",dailyOffensesReportFileName),stringsAsFactors=FALSE)
+    oldDailyfieldContacts <- read.csv(paste0(dataSetDirectory,"previous-",dailyfieldContactsReportFileName),stringsAsFactors=FALSE)
+    oldDailyTheftFromVehicle <- read.csv(paste0(dataSetDirectory,"previous-",dailyTheftFromVehicleReportFileName),stringsAsFactors=FALSE)
     
     ## Merge previous and new data sets
     ## Consider doing one data set merge at a time and then using rm() on each data frame to save memory space
-    dailyAccidentReport <- rbind(oldDailyAccidentReport,dailyAccidentReport,stringsAsFactors=FALSE) # Daily Accident Report
-    dailyArrestReport <- rbind(oldDailyArrestReport,dailyArrestReport,stringsAsFactors=FALSE) # Daily Arrest Report
-    dailyJuvenileReport <- rbind(oldDailyJuvenileReport,dailyJuvenileReport,stringsAsFactors=FALSE) # Daily Juvenile Report
-    dailyOffenses <- rbind(oldDailyOffenses,dailyOffenses,stringsAsFactors=FALSE) # Daily Offenses Report
-    dailyfieldContacts <- rbind(oldDailyfieldContacts,dailyfieldContacts,stringsAsFactors=FALSE) # Daily Field Contacts Report
-    dailyTheftFromVehicle <- rbind(oldDailyTheftFromVehicle,dailyTheftFromVehicle,stringsAsFactors=FALSE) # Daily Theft from Vehicle Report
+    dailyAccidentReport <- rbind(oldDailyAccidentReport,dailyAccidentReport,stringsAsFactors=FALSE)
+    dailyArrestReport <- rbind(oldDailyArrestReport,dailyArrestReport,stringsAsFactors=FALSE)
+    dailyJuvenileReport <- rbind(oldDailyJuvenileReport,dailyJuvenileReport,stringsAsFactors=FALSE)
+    dailyOffenses <- rbind(oldDailyOffenses,dailyOffenses,stringsAsFactors=FALSE)
+    dailyfieldContacts <- rbind(oldDailyfieldContacts,dailyfieldContacts,stringsAsFactors=FALSE)
+    dailyTheftFromVehicle <- rbind(oldDailyTheftFromVehicle,dailyTheftFromVehicle,stringsAsFactors=FALSE)
     
     ## Remove duplicate rows, based on unique values in the first column, Report/Arrest/Field ID
-    dailyAccidentReport <- dailyAccidentReport[!duplicated(dailyAccidentReport[,1]),] # Daily Accident Report
-    dailyArrestReport <- dailyArrestReport[!duplicated(dailyArrestReport[,1]),] # Daily Arrest Report
-    dailyJuvenileReport <- dailyJuvenileReport[!duplicated(dailyJuvenileReport[,1]),] # Daily Juvenile Report
-    dailyOffenses <- dailyOffenses[!duplicated(dailyOffenses[,1]),] # Daily Offenses Report
-    dailyfieldContacts <- dailyfieldContacts[!duplicated(dailyfieldContacts[,1]),] # Daily Field Contacts Report
-    dailyTheftFromVehicle <- dailyTheftFromVehicle[!duplicated(dailyTheftFromVehicle[,1]),] # Daily Theft from Vehicle Report
+    dailyAccidentReport <- dailyAccidentReport[!duplicated(dailyAccidentReport[,1]),]
+    dailyArrestReport <- dailyArrestReport[!duplicated(dailyArrestReport[,1]),]
+    dailyJuvenileReport <- dailyJuvenileReport[!duplicated(dailyJuvenileReport[,1]),]
+    dailyOffenses <- dailyOffenses[!duplicated(dailyOffenses[,1]),]
+    dailyfieldContacts <- dailyfieldContacts[!duplicated(dailyfieldContacts[,1]),]
+    dailyTheftFromVehicle <- dailyTheftFromVehicle[!duplicated(dailyTheftFromVehicle[,1]),]
     
     ## Sort by date
+    # convert Date column to Date type
+    dailyAccidentReport$Date <- mdy(dailyAccidentReport$Date)
+    dailyArrestReport$Date <- mdy(dailyArrestReport$Date)
+    dailyJuvenileReport$Date <- mdy(dailyJuvenileReport$Date)
+    dailyOffenses$Date <- mdy(dailyOffenses$Date)
+    dailyfieldContacts$Date <- mdy(dailyfieldContacts$Date)
+    dailyTheftFromVehicle$Date <- mdy(dailyTheftFromVehicle$Date)
+    # arrange by Date column first, then Time column
+    dailyAccidentReport <- arrange(dailyAccidentReport, Date, hm(format(strptime(dailyAccidentReport$Time,"%I:%M %p"),format="%H:%M")))
+    dailyArrestReport <- arrange(dailyArrestReport, Date, hm(format(strptime(dailyArrestReport$Time,"%I:%M %p"),format="%H:%M")))
+    dailyJuvenileReport <- arrange(dailyJuvenileReport, Date, hm(format(strptime(dailyJuvenileReport$Time,"%I:%M %p"),format="%H:%M")))
+    dailyOffenses <- arrange(dailyOffenses, Date, hm(format(strptime(dailyOffenses$Time,"%I:%M %p"),format="%H:%M")))
+    dailyfieldContacts <- arrange(dailyfieldContacts, Date, hm(format(strptime(dailyfieldContacts$Time,"%I:%M %p"),format="%H:%M")))
+    dailyTheftFromVehicle <- arrange(dailyTheftFromVehicle, Date, hm(format(strptime(dailyTheftFromVehicle$Time,"%I:%M %p"),format="%H:%M")))
     
     ## Write merged data sets
-    write.csv(dailyAccidentReport,file=paste0(dataSetDirectory,dailyAccidentReportFileName),row.names=FALSE) # Daily Accident Report
-    write.csv(dailyArrestReport,file=paste0(dataSetDirectory,dailyArrestReportFileName),row.names=FALSE) # Daily Arrest Report
-    write.csv(dailyJuvenileReport,file=paste0(dataSetDirectory,dailyJuvenileReportFileName),row.names=FALSE) # Daily Juvenile Report
-    write.csv(dailyOffenses,file=paste0(dataSetDirectory,dailyOffensesReportFileName),row.names=FALSE) # Daily Offenses Report
-    write.csv(dailyfieldContacts,file=paste0(dataSetDirectory,dailyfieldContactsReportFileName),row.names=FALSE) # Daily Field Contacts Report
-    write.csv(dailyTheftFromVehicle,file=paste0(dataSetDirectory,dailyTheftFromVehicleReportFileName),row.names=FALSE) # Daily Theft from Vehicle Report
+    write.csv(dailyAccidentReport,file=paste0(dataSetDirectory,dailyAccidentReportFileName),row.names=FALSE)
+    write.csv(dailyArrestReport,file=paste0(dataSetDirectory,dailyArrestReportFileName),row.names=FALSE)
+    write.csv(dailyJuvenileReport,file=paste0(dataSetDirectory,dailyJuvenileReportFileName),row.names=FALSE)
+    write.csv(dailyOffenses,file=paste0(dataSetDirectory,dailyOffensesReportFileName),row.names=FALSE)
+    write.csv(dailyfieldContacts,file=paste0(dataSetDirectory,dailyfieldContactsReportFileName),row.names=FALSE)
+    write.csv(dailyTheftFromVehicle,file=paste0(dataSetDirectory,dailyTheftFromVehicleReportFileName),row.names=FALSE)
     
     ## Upload each data set as CSV --only files listed in the cloudStorageFiles data frame will get uploaded
     for(i in 1:nrow(cloudStorageFiles)) {

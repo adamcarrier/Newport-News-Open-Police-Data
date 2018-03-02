@@ -103,5 +103,4 @@ Tidy data tasks
 ---------------
 
 * Replace empty cells with NA values
-* Sort data sets by date
 * Try to make this more DRY--Put config variables like file and column names into vectored lists that can be passed to granular worker functions
