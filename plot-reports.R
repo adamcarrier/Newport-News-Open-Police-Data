@@ -59,10 +59,10 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     ## Add daily juvenile reports
     for(i in 1:nrow(dailyJuvenileReport)) {
         # create the popup
-        popupText <- paste(
-            sep="<br/>",
-            dailyJuvenileReport$DateTime[i],
-            dailyJuvenileReport$Offense[i]
+        popupText <- paste( 
+          paste(c(dailyJuvenileReport$Date[i],dailyJuvenileReport$Time[i]), collapse=" "),
+          dailyJuvenileReport$Offense[i],
+          sep="<br/>"
         )
         mapPlot <- addMarkers(mapPlot,lng=dailyJuvenileReport$Longitude[i],lat=dailyJuvenileReport$Latitude[i],popup=popupText,group="Juvenile Offenses") # add marker to plot
     }
