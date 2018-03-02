@@ -92,10 +92,10 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     ## Add daily theft from vehicle reports
     for(i in 1:nrow(dailyTheftFromVehicleReport)) {
         # create the popup
-        popupText <- paste(
-            sep="<br/>",
-            dailyTheftFromVehicleReport$DateTime[i],
-            "Theft from Vehicle"
+        popupText <- paste( 
+          paste(c(dailyTheftFromVehicleReport$Date[i],dailyTheftFromVehicleReport$Time[i]), collapse=" "),
+          "Theft from Vehicle",
+          sep="<br/>"
         )
         mapPlot <- addMarkers(mapPlot,lng=dailyTheftFromVehicleReport$Longitude[i],lat=dailyTheftFromVehicleReport$Latitude[i],popup=popupText,group="Theft from Vehicle") # add marker to plot
     }
