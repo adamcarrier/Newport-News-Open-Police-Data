@@ -86,12 +86,12 @@ runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
     dailyfieldContacts$Date <- mdy(dailyfieldContacts$Date)
     dailyTheftFromVehicle$Date <- mdy(dailyTheftFromVehicle$Date)
     # arrange by Date column first, then Time column
-    dailyAccidentReport <- arrange(dailyAccidentReport, Date, hm(format(strptime(dailyAccidentReport$Time,"%I:%M %p"),format="%H:%M")))
-    dailyArrestReport <- arrange(dailyArrestReport, Date, hm(format(strptime(dailyArrestReport$Time,"%I:%M %p"),format="%H:%M")))
-    dailyJuvenileReport <- arrange(dailyJuvenileReport, Date, hm(format(strptime(dailyJuvenileReport$Time,"%I:%M %p"),format="%H:%M")))
-    dailyOffenses <- arrange(dailyOffenses, Date, hm(format(strptime(dailyOffenses$Time,"%I:%M %p"),format="%H:%M")))
-    dailyfieldContacts <- arrange(dailyfieldContacts, Date, hm(format(strptime(dailyfieldContacts$Time,"%I:%M %p"),format="%H:%M")))
-    dailyTheftFromVehicle <- arrange(dailyTheftFromVehicle, Date, hm(format(strptime(dailyTheftFromVehicle$Time,"%I:%M %p"),format="%H:%M")))
+    dailyAccidentReport <- arrange(dailyAccidentReport,Date,hm(format(strptime(dailyAccidentReport$Time,"%I:%M %p"),format="%H:%M")))
+    dailyArrestReport <- arrange(dailyArrestReport,Date,hm(format(strptime(dailyArrestReport$Time,"%I:%M %p"),format="%H:%M")))
+    dailyJuvenileReport <- arrange(dailyJuvenileReport,Date,hm(format(strptime(dailyJuvenileReport$Time,"%I:%M %p"),format="%H:%M")))
+    dailyOffenses <- arrange(dailyOffenses,Date,hm(format(strptime(dailyOffenses$Time,"%I:%M %p"),format="%H:%M")))
+    dailyfieldContacts <- arrange(dailyfieldContacts,Date,hm(format(strptime(dailyfieldContacts$Time,"%I:%M %p"),format="%H:%M")))
+    dailyTheftFromVehicle <- arrange(dailyTheftFromVehicle,Date,hm(format(strptime(dailyTheftFromVehicle$Time,"%I:%M %p"),format="%H:%M")))
     
     ## Write merged data sets
     write.csv(dailyAccidentReport,file=paste0(dataSetDirectory,dailyAccidentReportFileName),row.names=FALSE)

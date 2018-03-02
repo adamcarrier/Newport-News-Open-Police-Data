@@ -42,7 +42,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
           "Vehicle Accident",
           sep="<br/>"
         )
-        mapPlot <- addMarkers(mapPlot,lng=dailyAccidentReport$Longitude[i],lat=dailyAccidentReport$Latitude[i],popup=popupText,group="Vehicle Accidents") # add marker to plot
+        mapPlot <- addCircles(mapPlot,lng=dailyAccidentReport$Longitude[i],lat=dailyAccidentReport$Latitude[i],popup=popupText,group="Vehicle Accidents") # add circle to plot
     }
     
     ## Add daily arrest reports
@@ -53,7 +53,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
             dailyArrestReport$Charge[i],
             sep="<br/>"
         )
-        mapPlot <- addMarkers(mapPlot,lng=dailyArrestReport$Longitude[i],lat=dailyArrestReport$Latitude[i],popup=popupText,group="Arrests") # add marker to plot
+        mapPlot <- addCircles(mapPlot,lng=dailyArrestReport$Longitude[i],lat=dailyArrestReport$Latitude[i],popup=popupText,group="Arrests") # add circle to plot
     }
     
     ## Add daily juvenile reports
@@ -64,7 +64,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
           dailyJuvenileReport$Offense[i],
           sep="<br/>"
         )
-        mapPlot <- addMarkers(mapPlot,lng=dailyJuvenileReport$Longitude[i],lat=dailyJuvenileReport$Latitude[i],popup=popupText,group="Juvenile Offenses") # add marker to plot
+        mapPlot <- addCircles(mapPlot,lng=dailyJuvenileReport$Longitude[i],lat=dailyJuvenileReport$Latitude[i],popup=popupText,group="Juvenile Offenses") # add circle to plot
     }
     
     ## Add daily offenses reports
@@ -75,7 +75,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
             dailyOffensesReport$Offense[i],
             sep="<br/>"
         )
-        mapPlot <- addMarkers(mapPlot,lng=dailyOffensesReport$Longitude[i],lat=dailyOffensesReport$Latitude[i],popup=popupText,group="Investigations") # add marker to plot
+        mapPlot <- addCircles(mapPlot,lng=dailyOffensesReport$Longitude[i],lat=dailyOffensesReport$Latitude[i],popup=popupText,group="Investigations") # add circle to plot
     }
     
     ## Add daily field contacts reports
@@ -86,7 +86,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
           dailyFieldContactsReport$Reason[i],
           sep="<br/>"
         )
-        mapPlot <- addMarkers(mapPlot,lng=dailyFieldContactsReport$Longitude[i],lat=dailyFieldContactsReport$Latitude[i],popup=popupText,group="Suspicious Activities") # add marker to plot
+        mapPlot <- addCircles(mapPlot,lng=dailyFieldContactsReport$Longitude[i],lat=dailyFieldContactsReport$Latitude[i],popup=popupText,group="Suspicious Activities") # add circle to plot
     }
     
     ## Add daily theft from vehicle reports
@@ -97,7 +97,7 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
           "Theft from Vehicle",
           sep="<br/>"
         )
-        mapPlot <- addMarkers(mapPlot,lng=dailyTheftFromVehicleReport$Longitude[i],lat=dailyTheftFromVehicleReport$Latitude[i],popup=popupText,group="Theft from Vehicle") # add marker to plot
+        mapPlot <- addCircles(mapPlot,lng=dailyTheftFromVehicleReport$Longitude[i],lat=dailyTheftFromVehicleReport$Latitude[i],popup=popupText,group="Theft from Vehicle") # add circle to plot
     }
     
     ## Add layers control
