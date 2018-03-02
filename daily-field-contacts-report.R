@@ -7,7 +7,7 @@ getDailyFieldContactsReport <- function(workingDirectory,dataSetDirectory="./dat
     ## Initial set up
     url <- "https://gis2.nngov.com/ssrs/report/?rs:Name=/12-Police/Daily_Field_Contacts_Public&rs:Command=Render&rs:Format=CSV"
     fileName <- "Daily_Field_Contacts_Public.csv"
-    destinationFile <- paste(dataSetDirectory,fileName)
+    destinationFile <- paste0(dataSetDirectory,fileName)
     setwd(workingDirectory)
     columnNames = c(
         "FieldID", # Field_ID
@@ -18,7 +18,7 @@ getDailyFieldContactsReport <- function(workingDirectory,dataSetDirectory="./dat
         "Race", # Race
         "Sex", # Sex
         "Age", # Age
-        "RescueAmbulanceUnit", # RA
+        "ReportingArea", # RA
         "Officer"  # Officer
     )
     columnClasses <- c(
@@ -69,9 +69,13 @@ getDailyFieldContactsReport <- function(workingDirectory,dataSetDirectory="./dat
         splitDateTime <- strsplit(data$DateTime[i],":") # split string at colon
         splitDateTime[[1]][[2]] <- gsub("(\\d{2})(?=\\d{2})","\\1:",splitDateTime[[1]][[2]],perl=TRUE) # add colon back into time
         splitDateTime[[1]][[2]] <- format(strptime(splitDateTime[[1]][[2]],format='%H:%M',tz="EST"),'%I:%M %p') # format into readable 12-hours
-        stdDateTime <- paste(splitDateTime[[1]][[1]],splitDateTime[[1]][[2]],sep=" ") # recombine formatted date and time
-        data$DateTime[i] <- stdDateTime # column date and time is now standardized
+        data$Date[i] <- splitDateTime[[1]][[1]] # split into Date column
+        data$Time[i] <- splitDateTime[[1]][[2]] # split into Time column
     }
+
+    ## Swap out DateTime for tidy Date and Time columns
+    data <- subset(data, select = -DateTime ) # drop DateTime column
+    data <- data[,c("FieldID", "Date", "Time", "Address", "Reason", "Disposition", "Race", "Sex", "Age", "ReportingArea", "Officer", "Longitude", "Latitude")] # new column order
     
     data # return the clean data frame
 }

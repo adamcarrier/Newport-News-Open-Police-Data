@@ -81,10 +81,10 @@ plotReports <- function(workingDirectory,dataSetDirectory="./data/",exportFileNa
     ## Add daily field contacts reports
     for(i in 1:nrow(dailyFieldContactsReport)) {
         # create the popup
-        popupText <- paste(
-            sep="<br/>",
-            dailyFieldContactsReport$DateTime[i],
-            dailyFieldContactsReport$Reason[i]
+        popupText <- paste( 
+          paste(c(dailyFieldContactsReport$Date[i],dailyFieldContactsReport$Time[i]), collapse=" "),
+          dailyFieldContactsReport$Reason[i],
+          sep="<br/>"
         )
         mapPlot <- addMarkers(mapPlot,lng=dailyFieldContactsReport$Longitude[i],lat=dailyFieldContactsReport$Latitude[i],popup=popupText,group="Suspicious Activities") # add marker to plot
     }
