@@ -1,4 +1,6 @@
 ## Dependencies
+install.packages("lubridate")
+install.packages("plyr")
 install.packages("googleCloudStorageR")
 
 runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
@@ -60,6 +62,21 @@ runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
     oldDailyfieldContacts <- read.csv(paste0(dataSetDirectory,"previous-",dailyfieldContactsReportFileName),stringsAsFactors=FALSE)
     oldDailyTheftFromVehicle <- read.csv(paste0(dataSetDirectory,"previous-",dailyTheftFromVehicleReportFileName),stringsAsFactors=FALSE)
     
+    ## Convert Date columns to Date type for later sorting
+    dailyAccidentReport$Date <- mdy(dailyAccidentReport$Date)
+    dailyArrestReport$Date <- mdy(dailyArrestReport$Date)
+    dailyJuvenileReport$Date <- mdy(dailyJuvenileReport$Date)
+    dailyOffenses$Date <- mdy(dailyOffenses$Date)
+    dailyfieldContacts$Date <- mdy(dailyfieldContacts$Date)
+    dailyTheftFromVehicle$Date <- mdy(dailyTheftFromVehicle$Date)
+    
+    oldDailyAccidentReport$Date <- ymd(oldDailyAccidentReport$Date)
+    oldDailyArrestReport$Date <-  ymd(oldDailyArrestReport$Date)
+    oldDailyJuvenileReport$Date <- ymd(oldDailyJuvenileReport$Date)
+    oldDailyOffenses$Date <- ymd(oldDailyOffenses$Date) 
+    oldDailyfieldContacts$Date <- ymd(oldDailyfieldContacts$Date) 
+    oldDailyTheftFromVehicle$Date <- ymd(oldDailyTheftFromVehicle$Date) 
+    
     ## Merge previous and new data sets
     ## Consider doing one data set merge at a time and then using rm() on each data frame to save memory space
     dailyAccidentReport <- rbind(oldDailyAccidentReport,dailyAccidentReport,stringsAsFactors=FALSE)
@@ -69,6 +86,22 @@ runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
     dailyfieldContacts <- rbind(oldDailyfieldContacts,dailyfieldContacts,stringsAsFactors=FALSE)
     dailyTheftFromVehicle <- rbind(oldDailyTheftFromVehicle,dailyTheftFromVehicle,stringsAsFactors=FALSE)
     
+    ## Sort by date: arrange by Date column first, then Time column
+    dailyAccidentReport <- arrange(dailyAccidentReport,Date,hm(format(strptime(dailyAccidentReport$Time,"%I:%M %p"),format="%H:%M")))
+    dailyArrestReport <- arrange(dailyArrestReport,Date,hm(format(strptime(dailyArrestReport$Time,"%I:%M %p"),format="%H:%M")))
+    dailyJuvenileReport <- arrange(dailyJuvenileReport,Date,hm(format(strptime(dailyJuvenileReport$Time,"%I:%M %p"),format="%H:%M")))
+    dailyOffenses <- arrange(dailyOffenses,Date,hm(format(strptime(dailyOffenses$Time,"%I:%M %p"),format="%H:%M")))
+    dailyfieldContacts <- arrange(dailyfieldContacts,Date,hm(format(strptime(dailyfieldContacts$Time,"%I:%M %p"),format="%H:%M")))
+    dailyTheftFromVehicle <- arrange(dailyTheftFromVehicle,Date,hm(format(strptime(dailyTheftFromVehicle$Time,"%I:%M %p"),format="%H:%M")))
+    
+    ## Convert Date column back to characters for deduping and writing
+    dailyAccidentReport$Date <- as.character(dailyAccidentReport$Date)
+    dailyArrestReport$Date <- as.character(dailyArrestReport$Date)
+    dailyJuvenileReport$Date <- as.character(dailyJuvenileReport$Date)
+    dailyOffenses$Date <- as.character(dailyOffenses$Date)
+    dailyfieldContacts$Date <- as.character(dailyfieldContacts$Date)
+    dailyTheftFromVehicle$Date <- as.character(dailyTheftFromVehicle$Date)
+    
     ## Remove duplicate rows, based on unique values in the first column, Report/Arrest/Field ID
     dailyAccidentReport <- dailyAccidentReport[!duplicated(dailyAccidentReport[,1]),]
     dailyArrestReport <- dailyArrestReport[!duplicated(dailyArrestReport[,1]),]
@@ -76,22 +109,6 @@ runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
     dailyOffenses <- dailyOffenses[!duplicated(dailyOffenses[,1]),]
     dailyfieldContacts <- dailyfieldContacts[!duplicated(dailyfieldContacts[,1]),]
     dailyTheftFromVehicle <- dailyTheftFromVehicle[!duplicated(dailyTheftFromVehicle[,1]),]
-    
-    ## Sort by date
-    # convert Date column to Date type
-    dailyAccidentReport$Date <- mdy(dailyAccidentReport$Date)
-    dailyArrestReport$Date <- mdy(dailyArrestReport$Date)
-    dailyJuvenileReport$Date <- mdy(dailyJuvenileReport$Date)
-    dailyOffenses$Date <- mdy(dailyOffenses$Date)
-    dailyfieldContacts$Date <- mdy(dailyfieldContacts$Date)
-    dailyTheftFromVehicle$Date <- mdy(dailyTheftFromVehicle$Date)
-    # arrange by Date column first, then Time column
-    dailyAccidentReport <- arrange(dailyAccidentReport,Date,hm(format(strptime(dailyAccidentReport$Time,"%I:%M %p"),format="%H:%M")))
-    dailyArrestReport <- arrange(dailyArrestReport,Date,hm(format(strptime(dailyArrestReport$Time,"%I:%M %p"),format="%H:%M")))
-    dailyJuvenileReport <- arrange(dailyJuvenileReport,Date,hm(format(strptime(dailyJuvenileReport$Time,"%I:%M %p"),format="%H:%M")))
-    dailyOffenses <- arrange(dailyOffenses,Date,hm(format(strptime(dailyOffenses$Time,"%I:%M %p"),format="%H:%M")))
-    dailyfieldContacts <- arrange(dailyfieldContacts,Date,hm(format(strptime(dailyfieldContacts$Time,"%I:%M %p"),format="%H:%M")))
-    dailyTheftFromVehicle <- arrange(dailyTheftFromVehicle,Date,hm(format(strptime(dailyTheftFromVehicle$Time,"%I:%M %p"),format="%H:%M")))
     
     ## Write merged data sets
     write.csv(dailyAccidentReport,file=paste0(dataSetDirectory,dailyAccidentReportFileName),row.names=FALSE)
