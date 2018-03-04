@@ -97,6 +97,7 @@ Things I've learned
 More to do
 ----------
 
+* Important: check for and handle blank reports
 * Include `Precinct` and `Beat` in data sets
 
 Tidy data tasks
