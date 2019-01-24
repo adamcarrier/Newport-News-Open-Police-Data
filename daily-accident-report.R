@@ -1,10 +1,15 @@
 ## Dependencies
-install.packages("ggmap")
+# install.packages("ggmap") # ignore current CRAN package; it's out-of-date
+if(!requireNamespace("devtools")) install.packages("devtools")
+devtools::install_github("dkahle/ggmap",ref="tidyup",force=TRUE) # install latest ggmap from GitHub, until CRAN is updated
 
 getDailyAccidentReport <- function(workingDirectory,dataSetDirectory="./data/") {
     require(ggmap)
     
     ## Initial set up
+    source("cloud-storage-env-vars.R") # my Google Cloud Storage API variables
+    register_google(key = GC_API_KEY) # GC_API_KEY var is the Google Maps API key
+    
     url <- "https://gis2.nngov.com/ssrs/report/?rs:Name=/12-Police/Daily_Accidents_Public&rs:Command=Render&rs:Format=CSV"
     fileName <- "Daily_Accidents_Public.csv"
     destinationFile <- paste0(dataSetDirectory,fileName)

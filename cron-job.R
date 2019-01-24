@@ -1,5 +1,5 @@
 options(repos="https://cran.rstudio.com") # necessary for non-interactive R
-repo <- "/Users/adam/Documents/Web Projects/Personal/Newport-News-Open-Police-Data"
+repo <- "/Users/adam/Documents/Data Projects/Personal/Newport-News-Open-Police-Data"
 source("./daily-collection.R")
 source("./cloud-storage-sync.R")
 source("./plot-reports.R")

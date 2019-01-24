@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # change to repo directory
-cd "/Users/adam/Documents/Web Projects/Personal/Newport-News-Open-Police-Data"
+cd "/Users/adam/Documents/Data Projects/Personal/Newport-News-Open-Police-Data"
 
 # run cron script that runs the daily collection, cloud sync, and leaflet plot
 # output goes to a file called a.Rout, which git will ignore

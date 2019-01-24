@@ -1,5 +1,5 @@
 ## Set repo working directory
-repo <- "/Users/adam/Documents/Web Projects/Personal/Newport-News-Open-Police-Data"
+repo <- "/Users/adam/Documents/Data Projects/Personal/Newport-News-Open-Police-Data"
 setwd(repo)
 
 ## Dependencies
@@ -12,7 +12,6 @@ source("./daily-theft-from-vehicle-report.R")
 source("./daily-collection.R")
 source("./cloud-storage-sync.R")
 source("./plot-reports.R")
-
 
 ## Test individual report collection; each returns a data frame
 dailyAccidents <- getDailyAccidentReport(repo)
