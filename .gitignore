@@ -6,9 +6,9 @@
 # Ignore shell script output
 cron-job.Rout
 
-# Ignore Google Cloud Storage API keys
+# Ignore Google Cloud Platform credentials
 cloud-storage-env-vars.R
+service-auth.json
 
-# Ignore data sets
+# Ignore data sets (default location)
 /data/
-.httr-oauth

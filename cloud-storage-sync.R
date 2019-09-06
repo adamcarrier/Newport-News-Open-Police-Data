@@ -20,14 +20,15 @@ runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
     dailyTheftFromVehicleReportFileName <- "newport-news-theft-from-vehicle-reports.csv"
     
     ## Set Google Cloud Storage environment variables
-    ## From: https://cran.r-project.org/web/packages/googleCloudStorageR/vignettes/googleCloudStorageR.html
+    # From: https://cran.r-project.org/web/packages/googleCloudStorageR/vignettes/googleCloudStorageR.html
+    # Readme: https://cran.r-project.org/web/packages/googleCloudStorageR/googleCloudStorageR.pdf
     # for OAuth 2.0 - "R clients" app ID
     
     Sys.setenv(
-        #"GCS_CLIENT_ID" = GCS_CLIENT_ID,
-        #"GCS_CLIENT_SECRET" = GCS_CLIENT_SECRET,
-        #"GCS_DEFAULT_BUCKET" = GCS_DEFAULT_BUCKET,
-        "GCS_AUTH_FILE" = paste(workingDirectory,".httr-oauth",sep="/") # auto authentication
+        "GCS_CLIENT_ID" = GCS_CLIENT_ID,
+        "GCS_CLIENT_SECRET" = GCS_CLIENT_SECRET,
+        "GCS_DEFAULT_BUCKET" = GCS_DEFAULT_BUCKET,
+        "GCS_AUTH_FILE" = paste(workingDirectory,GCS_AUTH_JSON_FILE,sep="/") # auto authentication
         )
     
     ## Set control scope
@@ -35,8 +36,7 @@ runCloudStorageSync <- function(workingDirectory,dataSetDirectory="./data/") {
     
     ## Load the library after the env vars are set
     require("googleCloudStorageR")
-    gcs_auth() # init connection
-    
+
     ## Get object info in the default bucket
     gcs_global_bucket(GCS_DEFAULT_BUCKET)
     cloudStorageFiles <- gcs_list_objects() # get a data frame listing all the files with their storage meta data

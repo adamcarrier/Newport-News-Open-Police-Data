@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "project-name-123456",
+  "private_key_id": "71a7506f4dfdcd30cc73d8dbaaf0827300a06b1b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\n=====exmample=====\n-----END PRIVATE KEY-----\n",
+  "client_email": "example-key-name@project-name-123456.iam.gserviceaccount.com",
+  "client_id": "12345678910",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/example-key-name%40project-name-123456.iam.gserviceaccount.com"
+}
